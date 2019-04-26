@@ -1,0 +1,90 @@
+schema: 1
+generic:
+# Default values! You can delete this if you are
+# fine with the current convention.
+# ------------------------------------------------
+#  artifacts: snapx/artifacts/$id$/$rid$/$version$
+#  packages: snapx/packages/$id$/$rid$
+#  installers: snapx/installers/$id$/$rid$
+#  nuspecs: snapx/nuspecs
+#  packStrategy: push
+channels:
+# By default credentials are read from the nuget.config file in your current working directory.
+# You can also use machine wide nuget settings.
+- name: test
+  pushFeed: !nuget
+    name: snapx-publish
+  updateFeed: !nuget
+    name: snapx-demoapp-update
+- name: staging
+  pushFeed: !nuget
+    name: snapx-publish
+  updateFeed: !nuget
+    name: snapx-demoapp-update
+- name: production
+  pushFeed: !nuget
+    name: snapx-publish
+  updateFeed: !nuget
+    name: snapx-demoapp-update
+# If you have a monorepo you can define multiple applications below.
+# Or you can create a `snapx.yml` in each application repository.
+# ------------------------------------------------------------------------
+apps:
+  # Has to match .NET executable name. 
+  # Windows: demoapp.exe
+  # Unix: demoapp (No file extension)
+- id: demoapp 
+  channels:
+  # This is the default channel. Releases
+  # are only pushed to this channel. Releases
+  # has to be promoted. Flow:
+  # test -> staging -> production
+  - test
+  - staging
+  - production
+  targets:
+  - os: windows
+    framework: netcoreapp2.2
+    rid: win-x64
+    nuspec: demoapp-win-x64.nuspec
+    icon: snapx/assets/icons/demoapp.ico
+    # Installer types that are built during release (pack).
+    # You do not have to keep installer assets around.
+    # They can be rebuilt using `snapx restore --installers`.
+    # Web installers will automatically update to the latest version
+    # irregardless of the version they were built against.
+    installers:
+    - web
+    - offline
+    shortcuts:
+    - desktop
+    - startup
+    - startmenu
+    # Persistent assets are relative to the install directory.
+    # On Windows this means: %localappdata%\demoapp
+    # On Ubuntu this means: $HOME/.local/share/demoapp
+    # So if a user reinstalls the application this file will never be deleted.
+    persistentAssets:
+    - application.json # %localappdata%\demoapp\application.json will never be deleted.
+  - os: linux
+    framework: netcoreapp2.2
+    rid: linux-x64
+    nuspec: demoapp-linux-x64.nuspec
+    icon: snapx/assets/icons/demoapp.svg
+    # Installer types that are built during release (pack).
+    # You do not have to keep installer assets around.
+    # They can be rebuilt using `snapx restore --installers`.
+    # Web installers will automatically update to the latest version
+    # irregardless of the version they were built against.
+    installers:
+    - web
+    - offline
+    shortcuts:
+    - desktop
+    - startup
+    # Persistent assets are relative to the install directory.
+    # On Windows this means: %localappdata%\demoapp
+    # On Ubuntu this means: $HOME/.local/share/demoapp
+    # So if a user reinstalls the application this file will never be deleted.
+    persistentAssets:
+    - application.json # %localappdata%\demoapp\application.json will never be deleted.

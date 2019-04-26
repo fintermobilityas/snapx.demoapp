@@ -1,0 +1,79 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:vm="clr-namespace:demoapp.ViewModels;assembly=demoapp"
+        Title="Snapx Demo"
+        Background="#EEEEF2"
+        MinWidth="1280"
+        MinHeight="580"
+        Width="1024"
+        Height="580">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid Margin="20">
+
+        <!-- View: Default -->
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch"
+                    IsVisible="{Binding ViewIsDefault}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Classes="display3" Text="Current version:" />
+                <TextBlock Grid.Column="0" Grid.Row="1" Classes="display3" Text="Current channel:" />
+                <TextBlock Grid.Column="0" Grid.Row="2" Classes="display3" Text="Current feed:" />
+                <TextBlock Grid.Column="0" Grid.Row="3" Classes="display3" Text="Next version:" />
+                
+                <TextBlock Grid.Column="1" Grid.Row="0" Classes="display3" Text="{Binding CurrentVersion}" />
+                <TextBlock Grid.Column="1" Grid.Row="1" Classes="display3" Text="{Binding CurrentChannel}" />
+                <TextBlock Grid.Column="1" Grid.Row="2" Classes="display3" Text="{Binding CurrentFeed}" />
+                <TextBlock Grid.Column="1" Grid.Row="3" Classes="display3" Text="{Binding NextVersion}"  />
+            </Grid>
+
+            <Button Command="{Binding CommandCheckForUpdates}">
+                <TextBlock Text="Check for updates" />
+            </Button>
+
+            <Button Command="{Binding CommandRestartApplication}">
+                <TextBlock Text="Tap to restart application" />
+            </Button>
+        </StackPanel>
+
+        <!-- View: Check for updates -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                    IsVisible="{Binding ViewIsCheckingForUpdates}">
+            <Image Classes="LoadingAnimation" Source="resm:demoapp.Assets.Images.Unicorn.png?assembly=demoapp" />
+        </StackPanel>
+
+        <!-- View: Applying updates -->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                    IsVisible="{Binding ViewIsApplyingUpdates}">
+            <TextBlock Classes="display1" Text="{Binding UpdateProgressText}" />
+            <ProgressBar Value="{Binding UpdateProgressPercentage}" Foreground="#36f22c" Maximum="100" />
+        </StackPanel>
+
+        <!-- View: Update completed-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                    IsVisible="{Binding ViewIsUpdateCompleted}">
+            <TextBlock Classes="display1" Text="Application has been successfully updated." />
+            <TextBlock Classes="display1" Text="{Binding NextVersion}" />
+            <TextBlock Classes="display1" Text="{Binding ReleaseNotes}" />
+            <Button Command="{Binding CommandRestartApplication}">
+                <TextBlock Text="Tap to restart application" />
+            </Button>
+        </StackPanel>
+        
+    </Grid>
+
+</Window>

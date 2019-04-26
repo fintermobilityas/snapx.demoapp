@@ -1,0 +1,12 @@
+.idea/
+.vs/
+.vscode/
+bin/
+obj/
+build/
+snapx/packages/*.nupkg
+snapx/build/
+*.log
+snapx/artifacts/
+snapx/packages/
+snapx/installers/

@@ -1,0 +1,51 @@
+﻿<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StyleInclude Source="resm:demoapp.Styles.Fonts.xaml?assembly=demoapp" />
+
+    <Style Selector="TextBlock.display1">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="0 20 0 0" />
+    </Style>
+
+    <Style Selector="TextBlock.display2">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="0 20 0 0" />
+    </Style>
+
+    <Style Selector="TextBlock.display3">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="0 20 0 0" />
+    </Style>
+    
+    <Style Selector="TextBlock.error">
+        <Setter Property="Foreground" Value="#ED2939"></Setter>
+    </Style>
+
+    <Style Selector="TextBox">
+        <Setter Property="Background" Value="#ffffff" />
+    </Style>
+
+    <Style Selector="Button">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Width" Value="300" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+        <Setter Property="Height" Value="30" />
+    </Style>
+    
+    <Style Selector="Image.LoadingAnimation">
+        <Style.Animations>
+            <Animation Duration="0:0:3" Easing="SineEaseInOut" IterationCount="Infinite">
+                <KeyFrame Cue="50%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.8"/>
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.8"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+</Styles>
