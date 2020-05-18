@@ -20,6 +20,6 @@
         <PackageReference Include="Avalonia.Desktop" Version="0.9.10" />
         <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.10" />
         <PackageReference Include="Snapx.Core" Version="1.0.8" /> 
-        <PackageReference Include="NLog.Config" Version="4.7.0" /> 
+        <PackageReference Include="NLog.Config" Version="4.7.1" /> 
     </ItemGroup>
 </Project>
