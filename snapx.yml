@@ -44,7 +44,7 @@ apps:
   - production
   targets:
   - os: windows
-    framework: netcoreapp2.2
+    framework: netcoreapp3.1
     rid: win-x64
     nuspec: demoapp-win-x64.nuspec
     icon: snapx/assets/icons/demoapp.ico
@@ -67,7 +67,7 @@ apps:
     persistentAssets:
     - application.json # %localappdata%\demoapp\application.json will never be deleted.
   - os: linux
-    framework: netcoreapp2.2
+    framework: netcoreapp3.1
     rid: linux-x64
     nuspec: demoapp-linux-x64.nuspec
     icon: snapx/assets/icons/demoapp.svg

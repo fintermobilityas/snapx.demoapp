@@ -13,13 +13,13 @@ namespace demoapp.Extensions
         const string ExpressionCannotBeNullMessage = "The expression cannot be null";
         const string InvalidExpressionMessage = "Invalid expression";
 
-        public static Type ResolveTypeUsingAssemblyOfT<T>([NotNull] this string typeName)
+        public static Type ResolveTypeUsingAssemblyOfT<T>([JetBrains.Annotations.NotNull] this string typeName)
         {
             if (typeName == null) throw new ArgumentNullException(nameof(typeName));
             return typeName.ResolveType(new[] { typeof(T).Assembly.FullName});
         }
         
-        public static Type ResolveType([NotNull] this string typeName, [NotNull] IEnumerable<string> assemblyNames)
+        public static Type ResolveType([JetBrains.Annotations.NotNull] this string typeName, [JetBrains.Annotations.NotNull] IEnumerable<string> assemblyNames)
         {
             if (typeName == null) throw new ArgumentNullException(nameof(typeName));
             if (assemblyNames == null) throw new ArgumentNullException(nameof(assemblyNames));
