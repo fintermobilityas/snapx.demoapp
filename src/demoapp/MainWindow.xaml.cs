@@ -45,6 +45,8 @@ namespace demoapp
                 Environment.Exit(0);
             });
 
+            DataContext = ViewModel;
+
             AvaloniaXamlLoader.Load(this);
         }
 

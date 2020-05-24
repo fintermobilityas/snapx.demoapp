@@ -1,5 +1,7 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:demoapp.ViewModels;assembly=demoapp"
+        x:Class="demoapp.MainWindow"
         Title="Snapx Demo"
         Background="#EEEEF2"
         MinWidth="1280"

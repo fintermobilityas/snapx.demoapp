@@ -9,7 +9,7 @@ namespace demoapp.Styles
     public class RobotoFontFamily : FontFamily
     {
         public RobotoFontFamily()
-            : base ("Roboto", new Uri("resm:demoapp.Assets.Fonts?assembly=demoapp"))
+            : base (new Uri("resm:demoapp.Assets.Fonts?assembly=demoapp"), "Roboto")
         {
         }
     }

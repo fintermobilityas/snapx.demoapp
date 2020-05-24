@@ -4,15 +4,17 @@ using System.Reflection;
 using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Diagnostics;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using demoapp.ViewModels;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using Snap.Core;
 using Snap.Core.Models;
-using Snap.Logging;
 using Logger = NLog.Logger;
 using LogLevel = NLog.LogLevel;
 
@@ -37,7 +39,20 @@ namespace demoapp
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-            base.Initialize();
+        }
+
+        public override void OnFrameworkInitializationCompleted()
+        {
+            base.OnFrameworkInitializationCompleted();
+
+            switch (ApplicationLifetime)
+            {
+                case IClassicDesktopStyleApplicationLifetime classicDesktopStyleApplicationLifetime:
+                    classicDesktopStyleApplicationLifetime.MainWindow = new MainWindow();
+                    return;
+                default:
+                    throw new NotSupportedException($"Unknown application life time: {ApplicationLifetime?.GetType().FullName}");
+            }
         }
 
         static int Main(string[] args)
@@ -78,15 +93,16 @@ namespace demoapp
                     UpdateManager = snapApp == null ? null : new SnapUpdateManager()
                 }
             };
-            
-            AppBuilder.Configure<App>()
+
+            AppBuilder
+                .Configure<App>()
                 .UsePlatformDetect()
                 .UseReactiveUI()
-                .BeforeStarting(builder =>
+                .AfterSetup(x =>
                 {
-                    demoapp.MainWindow.ViewModel = mainWindowViewModel;
+                    MainWindow.ViewModel = mainWindowViewModel;
                 })
-                .Start<MainWindow>(() => mainWindowViewModel);
+                .StartWithClassicDesktopLifetime(args);
 
             return 0;
         }
@@ -162,7 +178,7 @@ namespace demoapp
         public static void AttachDevTools(Window window)
         {
 #if DEBUG
-            DevTools.Attach(window);
+            DevTools.Attach(window, KeyGesture.Parse("CTRL+F12"));
 #endif
         }
 
