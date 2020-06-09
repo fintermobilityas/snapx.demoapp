@@ -1,0 +1,60 @@
+schema: 1
+
+generic:
+  token: 'overwrittenbygithubactions'
+
+channels:
+- name: test
+  pushFeed: !nuget
+    name: nuget.org
+  updateFeed: !nuget
+    name: nuget.org
+- name: staging
+  pushFeed: !nuget
+    name: nuget.org
+  updateFeed: !nuget
+    name: nuget.org
+- name: production
+  pushFeed: !nuget
+    name: nuget.org
+  updateFeed: !nuget
+    name: nuget.org
+
+apps:
+- id: demoapp 
+  nuspec:
+    description: Snapx demoapp
+    releaseNotes: Demoapp release notes
+    authors: Finter Mobility As
+    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+    repositoryType: git
+  channels:
+  - test
+  - staging
+  - production
+  targets:
+  - os: windows
+    framework: netcoreapp3.1
+    rid: win-x64
+    icon: .snapx/assets/icons/demoapp.ico
+    installers:
+    - web
+    - offline
+    shortcuts:
+    - desktop
+    - startup
+    - startmenu
+    persistentAssets:
+    - application.json
+  - os: linux
+    framework: netcoreapp3.1
+    rid: linux-x64
+    icon: .snapx/assets/icons/demoapp.svg
+    installers:
+    - web
+    - offline
+    shortcuts:
+    - desktop
+    - startup
+    persistentAssets:
+    - application.json

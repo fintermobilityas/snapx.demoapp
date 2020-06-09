@@ -1,0 +1,19 @@
+<Project>
+
+    <PropertyGroup>
+        <LangVersion>8.0</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Authors>Finter Mobility As</Authors>
+        <Product>snapx.demoapp</Product>
+        <Copyright>Copyright © Finter Mobility As</Copyright>
+        <NeutralLanguage>en-US</NeutralLanguage>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/fintermobilityas/snapx.demoapp</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/fintermobilityas/snapx.demoapp.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageOutputPath Condition="$(PackageOutputPath) == ''">$(MSBuildThisFileDirectory)\nupkgs</PackageOutputPath>
+    </PropertyGroup>
+
+</Project>

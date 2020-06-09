@@ -1,6 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demoapp", "src\demoapp\demoapp.csproj", "{509782C1-04B2-45B1-9612-009C386259DD}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demoapp", "src\demoapp\demoapp.csproj", "{509782C1-04B2-45B1-9612-009C386259DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5D674FDA-BAC3-4783-B5C1-0BDC4B244B00}"
+	ProjectSection(SolutionItems) = preProject
+		.snapx\snapx.yml = .snapx\snapx.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +20,11 @@ Global
 		{509782C1-04B2-45B1-9612-009C386259DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{509782C1-04B2-45B1-9612-009C386259DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{509782C1-04B2-45B1-9612-009C386259DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8EE1511-9566-4C91-8F7C-242C470383F9}
 	EndGlobalSection
 EndGlobal
