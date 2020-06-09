@@ -4,8 +4,6 @@
     <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     <AssemblyName>demoapp</AssemblyName>
     <RootNamespace>demoapp</RootNamespace>
-    <Version>1.0.0</Version>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\**\*.*" />
@@ -19,7 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="0.9.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.10" />
-    <PackageReference Include="Snapx.Core" Version="2.0.4" />
+    <PackageReference Include="Snapx.Core" Version="2.3.6" />
     <PackageReference Include="NLog.Config" Version="4.7.2" />
   </ItemGroup>
 </Project>
