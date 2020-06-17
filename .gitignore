@@ -4,9 +4,11 @@
 bin/
 obj/
 build/
-snapx/packages/*.nupkg
-snapx/build/
+
+.snapx/packages/*.nupkg
+.snapx/build/
+.snapx/artifacts/
+.snapx/packages/
+.snapx/installers/
+
 *.log
-snapx/artifacts/
-snapx/packages/
-snapx/installers/
