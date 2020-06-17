@@ -31,7 +31,7 @@ switch -regex ([Environment]::OSVersion) {
     }
 }
 
-$BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\$Rid\$Version
+$BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\demoapp\$Rid\$Version
 $SnapxYmlFilenamePath = Join-Path $WorkingDirectory .snapx\snapx.yml
 
 Resolve-Shell-Dependency dotnet
