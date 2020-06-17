@@ -180,9 +180,7 @@ namespace demoapp
              
         public static void AttachDevTools(Window window)
         {
-#if DEBUG
             DevTools.Attach(window, KeyGesture.Parse("CTRL+F12"));
-#endif
         }
 
     }
