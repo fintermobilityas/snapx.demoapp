@@ -13,11 +13,18 @@ namespace demoapp.ViewModels
         string _updateProgressText;
         string _releaseNotes;
         int _updateProgressPercentage;
+        bool _isSnapPacked;
 
         bool _viewIsDefault;
         bool _viewIsCheckingForUpdates;
         bool _viewIsApplyingUpdates;
         bool _viewIsUpdateCompleted;
+
+        public bool IsSnapPacked
+        {
+            get => _isSnapPacked;
+            set => this.RaiseAndSetIfChanged(ref _isSnapPacked, value);
+        }
 
         public string CurrentVersion
         {

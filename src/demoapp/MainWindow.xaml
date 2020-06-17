@@ -50,7 +50,7 @@
                 <TextBlock Text="Check for updates" />
             </Button>
 
-            <Button Command="{Binding CommandRestartApplication}">
+            <Button Command="{Binding CommandRestartApplication}" IsEnabled="{Binding IsSnapPacked}">
                 <TextBlock Text="Tap to restart application" />
             </Button>
         </StackPanel>

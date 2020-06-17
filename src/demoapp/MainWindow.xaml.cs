@@ -46,6 +46,7 @@ namespace demoapp
                 Snapx.StartSupervisor();
                 Environment.Exit(0);
             });
+            ViewModel.IsSnapPacked = Snapx.Current != null;
 
             DataContext = ViewModel;
 
@@ -64,7 +65,7 @@ namespace demoapp
                     TransitionView(x => x.ViewIsCheckingForUpdates);
                     await Task.Delay(TimeSpan.FromSeconds(3));
                     TransitionView(x => x.ViewIsDefault);
-                    ViewModel.CurrentVersion = "You need to publish application in order to check for updates";
+                    ViewModel.CurrentVersion = "You need to publish this application in order to check for updates";
                 });
                 return;
             }
@@ -158,10 +159,12 @@ namespace demoapp
                 return await updateManager.UpdateToLatestReleaseAsync(_updateProgressSource);
             });
 
-            await Dispatcher.UIThread.InvokeAsync(() =>
+            await Dispatcher.UIThread.InvokeAsync(async () =>
             {
                 if (snapApp == null)
                 {
+                    await Task.Delay(TimeSpan.FromSeconds(1.5));
+
                     TransitionView(x => x.ViewIsDefault);
                     ViewModel.NextVersion = "Your application is UpToDate\u2122 :)";
                     return;
