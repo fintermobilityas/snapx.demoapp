@@ -91,7 +91,7 @@ jobs:
                    
   publish:
     if: success()
-    name: Publish release to test channel on all supported operating systems
+    name: Publish ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [setup, build]
     strategy:
