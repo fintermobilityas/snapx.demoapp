@@ -8,6 +8,7 @@ namespace demoapp.ViewModels
         string _currentVersion;
         string _currentChannel;
         string _currentFeed;
+        string _currentApplicationId;
         string _nextVersion;
         string _updateProgressText;
         string _releaseNotes;
@@ -40,6 +41,12 @@ namespace demoapp.ViewModels
         {
             get => _currentFeed;
             set => this.RaiseAndSetIfChanged(ref _currentFeed, value);
+        }
+
+        public string CurrentApplicationId
+        {
+            get => _currentApplicationId;
+            set => this.RaiseAndSetIfChanged(ref _currentApplicationId, value);
         }
 
         public string NextVersion
@@ -87,5 +94,6 @@ namespace demoapp.ViewModels
         public ReactiveCommand<Unit, Unit> CommandCheckForUpdates { get; set; }
         public ReactiveCommand<Unit, Unit> CommandRestartApplication { get; set; }
         public IAppEnvironment Environment { get; set; }
+
     }
 }

@@ -26,6 +26,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250" />
@@ -35,12 +36,14 @@
                 <TextBlock Grid.Column="0" Grid.Row="0" Classes="display3" Text="Current version:" />
                 <TextBlock Grid.Column="0" Grid.Row="1" Classes="display3" Text="Current channel:" />
                 <TextBlock Grid.Column="0" Grid.Row="2" Classes="display3" Text="Current feed:" />
-                <TextBlock Grid.Column="0" Grid.Row="3" Classes="display3" Text="Next version:" />
+                <TextBlock Grid.Column="0" Grid.Row="3" Classes="display3" Text="Application id:" />
+                <TextBlock Grid.Column="0" Grid.Row="4" Classes="display3" Text="Next version:" />
                 
                 <TextBlock Grid.Column="1" Grid.Row="0" Classes="display3" Text="{Binding CurrentVersion}" />
                 <TextBlock Grid.Column="1" Grid.Row="1" Classes="display3" Text="{Binding CurrentChannel}" />
                 <TextBlock Grid.Column="1" Grid.Row="2" Classes="display3" Text="{Binding CurrentFeed}" />
-                <TextBlock Grid.Column="1" Grid.Row="3" Classes="display3" Text="{Binding NextVersion}"  />
+                <TextBlock Grid.Column="1" Grid.Row="3" Classes="display3" Text="{Binding CurrentApplicationId}" />
+                <TextBlock Grid.Column="1" Grid.Row="4" Classes="display3" Text="{Binding NextVersion}"  />
             </Grid>
 
             <Button Command="{Binding CommandCheckForUpdates}">

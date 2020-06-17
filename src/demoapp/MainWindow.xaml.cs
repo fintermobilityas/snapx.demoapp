@@ -33,10 +33,12 @@ namespace demoapp
         {
             var snapApp = Snapx.Current;
             var currentChannel = snapApp?.Channels.FirstOrDefault(x => x.Current);
+            var snapUpdateManager = ViewModel.Environment.UpdateManager;
 
             ViewModel.CurrentVersion = snapApp?.Version.ToNormalizedString() ?? "-";
             ViewModel.CurrentChannel = currentChannel?.Name ?? "-";
             ViewModel.CurrentFeed = currentChannel?.UpdateFeed.Source?.ToString() ?? "-";
+            ViewModel.CurrentApplicationId = snapUpdateManager?.ApplicationId ?? "-";
             ViewModel.NextVersion = "-";
             ViewModel.CommandCheckForUpdates = ReactiveCommand.CreateFromTask(CommandCheckForUpdatesAsync);
             ViewModel.CommandRestartApplication = ReactiveCommand.Create( () =>
