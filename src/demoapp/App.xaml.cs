@@ -90,7 +90,10 @@ namespace demoapp
                 Environment = new AppEnvironment
                 {
                     SnapApp = snapApp,
-                    UpdateManager = snapApp == null ? null : new SnapUpdateManager()
+                    UpdateManager = snapApp == null ? null : new SnapUpdateManager
+                    {
+                        ApplicationId = Guid.NewGuid().ToString("N")
+                    }
                 }
             };
 
