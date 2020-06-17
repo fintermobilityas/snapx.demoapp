@@ -59,7 +59,7 @@ jobs:
         shell: pwsh
         run: |
           $build_version = $env:BUILD_VERSION;          
-          pwsh -command ".\$GITHUB_WORKSPACE\build.ps1" -Version $build_version -SnapxToken ${{ secrets.SNAPX_TOKEN }}
+          pwsh -command ".\$GITHUB_WORKSPACE\build.ps1" -Version $build_version 
           
       - name: Upload artifacts      
         if: success() 
@@ -142,7 +142,12 @@ jobs:
         with:
           name: windows-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/win-x64/${{ env.BUILD_VERSION }}
-          
+      
+      - name: Update snapx.yml lock token
+        shell: pwsh
+        run: |
+          pwsh -command ".\$GITHUB_WORKSPACE\build.ps1" -Target Set-Snapx-Token -SnapxToken ${{ secrets.SNAPX_TOKEN }}
+      
       - name: Publish release to linux test channel
         if: success()
         timeout-minutes: 15
