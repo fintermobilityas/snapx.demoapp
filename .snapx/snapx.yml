@@ -6,14 +6,14 @@ generic:
 channels:
 - name: test
   pushFeed: !nuget
-    name: snapxdemoapp-publish
+    name: demoapp-publish
   updateFeed: !nuget
-    name: snapxdemoapp-update
+    name: demoapp-update
 - name: production
   pushFeed: !nuget
-    name: snapxdemoapp-publish
+    name: demoapp-publish
   updateFeed: !nuget
-    name: snapxdemoapp-update
+    name: demoapp-update
 
 apps:
 - id: demoapp 
