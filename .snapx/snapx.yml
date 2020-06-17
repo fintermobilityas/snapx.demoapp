@@ -1,7 +1,7 @@
 schema: 1
 
 generic:
-  token: 'overwrittenbygithubactions'
+  token: overwrittenbygithubactions
 
 channels:
 - name: test
