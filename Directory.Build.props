@@ -16,4 +16,8 @@
         <PackageOutputPath Condition="$(PackageOutputPath) == ''">$(MSBuildThisFileDirectory)\nupkgs</PackageOutputPath>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <SnapxVersion>2.3.7</SnapxVersion>
+    </PropertyGroup>
+
 </Project>
