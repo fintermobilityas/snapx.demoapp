@@ -1,5 +1,7 @@
 param(
-    
+    [Parameter(Position = 0, ValueFromPipeline = $true)]
+    [ValidateSet("Publish", "Set-Snapx-Token")]
+    [string] $Target = "Publish",
     [Parameter(Position = 0, ValueFromPipeline = $true)]
     [string] $Version = "0.0.0",
     [Parameter(Position = 1, ValueFromPipeline = $true)]
@@ -34,19 +36,35 @@ switch -regex ([Environment]::OSVersion) {
 $BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\demoapp\$Rid\$Version
 $SnapxYmlFilenamePath = Join-Path $WorkingDirectory .snapx\snapx.yml
 
-Resolve-Shell-Dependency dotnet
+switch($Target) {
+    "Publish" {
+        Resolve-Shell-Dependency dotnet
 
-Invoke-Command-Colored dotnet @(
-    ("publish {0}" -f (Join-Path $WorkingDirectory Demoapp.sln))
-    "/p:Version=$Version"
-    "--runtime $Rid"
-    "--self-contained"
-    "--framework $Framework"
-    "--output $BuildOutputDirectory"
-    "--configuration $Configuration"
-)
+        Invoke-Command-Colored dotnet @(
+            ("publish {0}" -f (Join-Path $WorkingDirectory Demoapp.sln))
+            "/p:Version=$Version"
+            "--runtime $Rid"
+            "--self-contained"
+            "--framework $Framework"
+            "--output $BuildOutputDirectory"
+            "--configuration $Configuration"
+        )
 
-if([string]::IsNullOrWhiteSpace($SnapxToken) -eq $false) {
-    $SnapxYmlContent = (Get-Content $SnapxYmlFilenamePath) -replace "token:.*", "token: ${SnapxToken}"
-    $SnapxYmlContent | Out-File $SnapxYmlFilenamePath -Encoding $Utf8NoBomEncoding
+    }
+    "Set-Snapx-Token" {
+        
+        Write-Output-Colored "Replacing snapx lock token"
+
+        $SnapxYmlContent = (Get-Content $SnapxYmlFilenamePath) -replace "token:.*", "token: ${SnapxToken}"
+        
+        if($SnapxYmlContent -match "token: ${SnapxToken}") {
+            $SnapxYmlContent | Out-File $SnapxYmlFilenamePath -Encoding $Utf8NoBomEncoding
+            Write-Output "Successfully replaced snapx lock token"
+            exit 0
+        }
+
+        Write-Error "Unknown error replacing snapx lock token"
+
+        exit 0
+    }
 }
