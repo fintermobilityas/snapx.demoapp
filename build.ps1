@@ -24,7 +24,7 @@ switch -regex ([Environment]::OSVersion) {
     }
     "^Unix" {
         $OSPlatform = "Unix"
-        $Rid = "linux-64"   
+        $Rid = "linux-x64"   
     }	
     default {
         Write-Error "Unsupported os: $OSVersion"
