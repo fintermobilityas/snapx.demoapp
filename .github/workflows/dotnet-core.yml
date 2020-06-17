@@ -13,6 +13,7 @@ env:
   FINTER_NUGET_FEED: https://nuget.pkg.github.com/fintermobilityas/index.json
   SNAPX_UPDATE_FEED_URL: https://www.myget.org/F/snapxdemo/api/v3/index.json
   SNAPX_ID: demoapp
+  
 jobs:
 
   setup:    
@@ -67,7 +68,14 @@ jobs:
         with:
           name: linux-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/linux-x64/${{ env.BUILD_VERSION }}/**/*
-          
+      
+      - name: Upload installers      
+        if: success() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-installers
+          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/**/*.bin
+         
   build-windows:
     if: success()
     name: Windows
@@ -99,6 +107,13 @@ jobs:
         with:
           name: windows-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/win-x64/${{ env.BUILD_VERSION }}/**/*
+      
+      - name: Upload installers      
+        if: success() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-installers
+          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/**/*.exe
           
   publish:
     if: success()
@@ -169,7 +184,14 @@ jobs:
           release_name: Release v${{ env.BUILD_VERSION }}
           draft: true
           prerelease: false
-    
+
+      - name: Download windows installers
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/download-artifact@v2
+        with:
+          name: windows-installers
+          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64
+      
       - name: Upload Setup-win-x64-test-web.exe
         if: success() && github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1.0.2
@@ -191,6 +213,13 @@ jobs:
           asset_path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-production-web.exe
           asset_name: Setup-win-x64-production-web.exe
           asset_content_type: application/vnd.microsoft.portable-executable
+                  
+      - name: Download linux installers
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/download-artifact@v2
+        with:
+          name: linux-installers
+          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64
           
       - name: Upload Setup-linux-x64-test-web.bin
         if: success() && github.ref == 'refs/heads/master'
