@@ -1,6 +1,10 @@
 name: demoapp
 
-on: push
+on:
+  push:
+    branches:
+      - develop
+      - master
 
 env:
   GITVERSION_VERSION: 5.3.4
