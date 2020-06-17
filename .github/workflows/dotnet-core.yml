@@ -1,6 +1,10 @@
 name: demoapp
 
-on: push
+on:
+  push:
+    branches:
+      - develop
+      - master
 
 env:
   GITVERSION_VERSION: 5.3.4
@@ -150,7 +154,8 @@ jobs:
         run: snapx pack -a ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --skip-installers --lock-retries -1 -y
       
       - name: Create github release tag
-        if: success()
+        if: success() && github.ref == 'refs/heads/master'
+        id: create-release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -159,3 +164,47 @@ jobs:
           release_name: Release v${{ env.BUILD_VERSION }}
           draft: true
           prerelease: false
+    
+      - name: Upload Setup-win-x64-test-web.exe
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }} 
+          asset_path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-test-web.exe
+          asset_name: Setup-win-x64-test-web.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+      
+      - name: Upload Setup-win-x64-production-web.exe
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }} 
+          asset_path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-production-web.exe
+          asset_name: Setup-win-x64-production-web.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+          
+      - name: Upload Setup-linux-x64-test-web.bin
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }} 
+          asset_path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-test-web.bin
+          asset_name: Setup-win-x64-test-web.bin
+          asset_content_type: application/x-elf
+          
+      - name: Upload Setup-linux-x64-production-web.bin
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }} 
+          asset_path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-production-web.bin
+          asset_name: Setup-linux-x64-production-web.bin
+          asset_content_type: application/x-elf
