@@ -9,11 +9,6 @@ channels:
     name: snapxdemoapp-publish
   updateFeed: !nuget
     name: snapxdemoapp-update
-- name: staging
-  pushFeed: !nuget
-    name: snapxdemoapp-publish
-  updateFeed: !nuget
-    name: snapxdemoapp-update
 - name: production
   pushFeed: !nuget
     name: snapxdemoapp-publish
@@ -30,7 +25,6 @@ apps:
     repositoryType: git
   channels:
   - test
-  - staging
   - production
   targets:
   - os: windows
