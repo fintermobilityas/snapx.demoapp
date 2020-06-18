@@ -40,6 +40,7 @@ namespace demoapp
             ViewModel.CurrentFeed = currentChannel?.UpdateFeed.Source?.ToString() ?? "-";
             ViewModel.CurrentApplicationId = snapUpdateManager?.ApplicationId ?? "-";
             ViewModel.NextVersion = "-";
+            ViewModel.SnapxVersion = Snapx.Version?.ToFullString() ?? "-";
             ViewModel.CommandCheckForUpdates = ReactiveCommand.CreateFromTask(CommandCheckForUpdatesAsync);
             ViewModel.CommandRestartApplication = ReactiveCommand.Create( () =>
             {
