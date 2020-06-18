@@ -52,5 +52,3 @@ apps:
     - startup
     persistentAssets:
     - application.json
-    releaseNotes: |
-        My #awesome release notes :)
