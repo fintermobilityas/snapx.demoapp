@@ -140,12 +140,12 @@ jobs:
       - name: Publish release to linux test channel
         if: success() && matrix.os == 'ubuntu-latest'
         timeout-minutes: 15
-        run: snapx pack -a ${{ env.SNAPX_ID }} -r linux-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        run: snapx pack ${{ env.SNAPX_ID }} -r linux-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
       
       - name: Publish release to windows test channel
         if: success() && matrix.os == 'windows-latest'
         timeout-minutes: 15
-        run: snapx pack -a ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        run: snapx pack ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
       
       - name: Upload installers      
         if: success() 
