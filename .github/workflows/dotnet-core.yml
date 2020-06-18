@@ -11,7 +11,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1 
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   FINTER_NUGET_FEED: https://nuget.pkg.github.com/fintermobilityas/index.json
-  SNAPX_UPDATE_FEED_URL: https://www.myget.org/F/demoapp1/api/v3/index.json
+  SNAPX_UPDATE_FEED_URL: https://www.myget.org/F/demoapp2/api/v3/index.json
   SNAPX_ID: demoapp
   
 jobs:
