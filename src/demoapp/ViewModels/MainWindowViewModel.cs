@@ -105,6 +105,7 @@ namespace demoapp.ViewModels
             set => this.RaiseAndSetIfChanged(ref _viewIsUpdateCompleted, value);
         }
 
+        public ReactiveCommand<Unit, Unit> CommandOpenApplicationFolder { get; set; }
         public ReactiveCommand<Unit, Unit> CommandCheckForUpdates { get; set; }
         public ReactiveCommand<Unit, Unit> CommandRestartApplication { get; set; }
         public IAppEnvironment Environment { get; set; }

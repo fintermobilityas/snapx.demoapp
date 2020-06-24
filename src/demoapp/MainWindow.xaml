@@ -49,6 +49,10 @@
                 <TextBlock Grid.Column="1" Grid.Row="5" Classes="display3" Text="{Binding SnapxVersion}"  />
             </Grid>
 
+            <Button Command="{Binding CommandOpenApplicationFolder}">
+                <TextBlock Text="Open application folder" />
+            </Button>
+
             <Button Command="{Binding CommandCheckForUpdates}">
                 <TextBlock Text="Check for updates" />
             </Button>

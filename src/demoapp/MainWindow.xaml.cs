@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
@@ -46,6 +49,47 @@ namespace demoapp
             {
                 Snapx.StartSupervisor();
                 Environment.Exit(0);
+            });
+            ViewModel.CommandOpenApplicationFolder = ReactiveCommand.Create(() =>
+            {
+                var snapxWorkingDirectory = Snapx.WorkingDirectory;
+                if (snapxWorkingDirectory == null || !Directory.Exists(snapxWorkingDirectory))
+                {
+                    return;
+                }
+
+                var demoappWorkingDirectory = Path.GetFullPath(Path.Combine(snapxWorkingDirectory, ".."));
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = demoappWorkingDirectory,
+                        Verb = "open",
+                        UseShellExecute = false,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        ErrorDialog = false,
+                        CreateNoWindow = true
+                    });
+                    return;
+                }
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "xdg-open",
+                        Arguments = demoappWorkingDirectory,
+                        UseShellExecute = false,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        ErrorDialog = false,
+                        CreateNoWindow = true
+                    });
+
+                    return;
+                }
+
+                throw new PlatformNotSupportedException();
             });
             ViewModel.IsSnapPacked = Snapx.Current != null;
 
