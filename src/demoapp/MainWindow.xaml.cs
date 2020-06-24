@@ -63,10 +63,7 @@ namespace demoapp
                     {
                         FileName = demoappWorkingDirectory,
                         Verb = "open",
-                        UseShellExecute = false,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        ErrorDialog = false,
-                        CreateNoWindow = true
+                        UseShellExecute = true
                     });
                     return;
                 }
@@ -77,10 +74,7 @@ namespace demoapp
                     {
                         FileName = "xdg-open",
                         Arguments = demoappWorkingDirectory,
-                        UseShellExecute = false,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        ErrorDialog = false,
-                        CreateNoWindow = true
+                        UseShellExecute = false
                     });
 
                     return;
