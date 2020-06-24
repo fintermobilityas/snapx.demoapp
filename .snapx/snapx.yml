@@ -14,6 +14,7 @@ channels:
 
 apps:
 - id: demoapp 
+  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
     releaseNotes: Demoapp release notes
