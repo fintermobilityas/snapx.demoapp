@@ -39,6 +39,18 @@ namespace demoapp
             var currentChannel = snapApp?.Channels.FirstOrDefault(x => x.Current);
             var snapUpdateManager = ViewModel.Environment.UpdateManager;
 
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                ViewModel.Title = "Snapx Windows Demo";
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                ViewModel.Title = "Snapx Linux Demo";
+            }
+            else
+            {
+                ViewModel.Title = "Snapx Unknown Os Demo";
+            }
+
             ViewModel.CurrentVersion = snapApp?.Version.ToNormalizedString() ?? "-";
             ViewModel.CurrentChannel = currentChannel?.Name ?? "-";
             ViewModel.CurrentFeed = currentChannel?.UpdateFeed.Source?.ToString() ?? "-";

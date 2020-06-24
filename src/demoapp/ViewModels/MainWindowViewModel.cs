@@ -15,11 +15,18 @@ namespace demoapp.ViewModels
         int _updateProgressPercentage;
         bool _isSnapPacked;
         string _snapxVersion;
+        string _title;
 
         bool _viewIsDefault;
         bool _viewIsCheckingForUpdates;
         bool _viewIsApplyingUpdates;
         bool _viewIsUpdateCompleted;
+
+        public string Title
+        {
+            get => _title;
+            set => this.RaiseAndSetIfChanged(ref _title, value);
+        }
 
         public bool IsSnapPacked
         {
