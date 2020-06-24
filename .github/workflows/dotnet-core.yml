@@ -10,9 +10,10 @@ env:
   GITVERSION_VERSION: 5.3.4
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1 
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  SNAPX_UPDATE_FEED_URL: https://www.myget.org/F/demoapp2/api/v3/index.json
   SNAPX_ID: demoapp
-  
+  SNAPX_LOG_EXCEPTIONS: 1
+  SNAPX_UPDATE_FEED_URL: https://www.myget.org/F/demoapp2/api/v3/index.json
+
 jobs:
 
   setup:    
@@ -54,7 +55,8 @@ jobs:
       matrix: 
         os: [windows-latest, ubuntu-latest]
     env:
-      BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}      
+      BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
+      SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2.2.0
@@ -104,7 +106,6 @@ jobs:
     env:
       BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
       SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
-      SNAPX_LOG_EXCEPTIONS: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v2.2.0
