@@ -189,4 +189,4 @@ jobs:
               ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-demoapp-test-web.bin
               ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-demoapp-production-web.bin
           env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }          
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
