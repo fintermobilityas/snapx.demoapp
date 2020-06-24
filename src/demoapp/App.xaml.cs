@@ -83,6 +83,13 @@ namespace demoapp
             }
             
             var snapApp = Snapx.Current;
+
+            if (snapApp != null)
+            {
+                // Supervisor automatically restarts your application if it crashes.
+                // If you need to exit your application the you must invoke Snapx.StopSupervisor() before exiting.
+                Snapx.StartSupervisor();
+            }
             
             var mainWindowViewModel = new MainWindowViewModel
             {
