@@ -168,7 +168,7 @@ namespace demoapp
                             SetProgressText(releasesDownloaded, releasesToDownload, "Downloading payload", "Downloading payloads");
                             break;
                         case "Restore":
-                            SetProgressText(filesToRestore, filesRestored, "Restoring file", "Restoring files");
+                            SetProgressText(filesRestored, filesToRestore, "Restoring file", "Restoring files");
                             break;
                     }
                 }
