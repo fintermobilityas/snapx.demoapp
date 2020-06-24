@@ -1,5 +1,11 @@
 schema: 1
 
+# -- Check for new demoapp update feed:
+#    dotnet nuget add source https://www.myget.org/F/demoapp2/api/v3/index.json --name demoapp-update
+
+# -- Publish demoapp to this feed (remember to add myget username and password). Pre-authenticated feeds are supported.
+#    dotnet nuget add source https://www.myget.org/F/demoapp2/api/v3/index.json --name demoapp-publish
+
 channels:
 - name: test
   pushFeed: !nuget
@@ -12,8 +18,17 @@ channels:
   updateFeed: !nuget
     name: demoapp-update
 
+# In order to publish to ensure that snapx works in a distributed
+# environment you have to generate a unique uuid:
+
+##### UNCOMMENT START ####
+#generic:
+  #token: https://www.guidgenerator.com/online-guid-generator.aspx
+##### UNCOMMENT END ######
+
 apps:
 - id: demoapp 
+  # You must generate a unique uuid using https://www.guidgenerator.com/online-guid-generator.aspx
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
