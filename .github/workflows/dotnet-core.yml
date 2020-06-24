@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       BUILD_VERSION: ${{ steps.set-build-version.outputs.BUILD_VERSION }}
+      SNAPX_VERSION: ${{ steps.set-snapx-version.outputs.SNAPX_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2.2.0
@@ -37,6 +38,14 @@ jobs:
           $BUILD_VERSION = (dotnet gitversion /showVariable NugetVersionv2) | out-string
           echo "::set-output name=BUILD_VERSION::$BUILD_VERSION"
 
+      - id: set-snapx-version
+        name: Read current snapx version
+        shell: pwsh
+        run: |
+         [xml] $xml_content = Get-Content ".\$GITHUB_WORKSPACE\Directory.Build.props";
+         $SNAPX_VERSION = Select-Xml -Xml $xml_content -XPath "//Project/PropertyGroup/SnapxVersion" | Select -Expand Node | Select -Expand "#text"
+         echo "::set-output name=SNAPX_VERSION::$SNAPX_VERSION"
+
   build:
     name: Build ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -45,7 +54,7 @@ jobs:
       matrix: 
         os: [windows-latest, ubuntu-latest]
     env:
-      BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
+      BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}      
     steps:
       - name: Checkout
         uses: actions/checkout@v2.2.0
@@ -58,32 +67,31 @@ jobs:
       - name: Build 
         shell: pwsh
         run: |
-          $build_version = $env:BUILD_VERSION;          
-          $matrix_os = "${{ matrix.os }}";
-          $matrid_rid = $null;
+          $MatrixOs = "${{ matrix.os }}";
+          $DotnetRid = $null;
           
-          switch($matrix_os) 
+          switch($MatrixOs) 
           {
               "windows-latest" {
-                $matrid_rid = "win-x64";
+                $DotnetRid = "win-x64";
               }
               "ubuntu-latest" {
-                $matrid_rid = "linux-x64";
+                $DotnetRid = "linux-x64";
               }
               default {
-                Write-Error "Unsupported os: $matrix_os"
+                Write-Error "Unsupported os: $MatrixOs"
               }
           }
           
-          pwsh -command ".\$GITHUB_WORKSPACE\build.ps1" -Version $build_version 
-          echo "::set-env name=MATRIX_RID::$matrid_rid"
+          pwsh -command ".\$GITHUB_WORKSPACE\build.ps1" -Version ${{ env.BUILD_VERSION }} 
+          echo "::set-env name=DOTNET_RID::$DotnetRid"
           
       - name: Upload artifacts 
         if: success() 
         uses: actions/upload-artifact@v2.0.1
         with:
           name: ${{ matrix.os }}-artifacts
-          path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/${{ env.MATRIX_RID }}/${{ env.BUILD_VERSION }}
+          path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/${{ env.DOTNET_RID }}/${{ env.BUILD_VERSION }}
                    
   publish:
     if: success()
@@ -95,6 +103,7 @@ jobs:
         os: [windows-latest, ubuntu-latest]
     env:
       BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
+      SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
       SNAPX_LOG_EXCEPTIONS: 1
     steps:
       - name: Checkout
@@ -112,11 +121,7 @@ jobs:
           dotnet nuget add source ${{ secrets.SNAPX_PUBLISH_FEED_URL }} --name ${{ env.SNAPX_ID }}-publish
         
       - name: Setup dotnet snapx
-        shell: pwsh
-        run: | 
-          [xml] $xml_content = Get-Content ".\$GITHUB_WORKSPACE\Directory.Build.props";
-          $snapx_version = Select-Xml -Xml $xml_content -XPath "//Project/PropertyGroup/SnapxVersion" | Select -Expand Node | Select -Expand "#text"
-          dotnet tool update snapx --global --version $snapx_version
+        run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
         
       - name: Download linux artifacts
         if: success() && matrix.os == 'ubuntu-latest'
@@ -135,19 +140,12 @@ jobs:
       - name: Publish release to linux test channel
         if: success() && matrix.os == 'ubuntu-latest'
         timeout-minutes: 15
-        run: snapx pack ${{ env.SNAPX_ID }} -r linux-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        run: snapx pack ${{ env.SNAPX_ID }} -r linux-x64 -v ${{ env.BUILD_VERSION }} --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
       
       - name: Publish release to windows test channel
         if: success() && matrix.os == 'windows-latest'
         timeout-minutes: 15
-        run: snapx pack ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
-      
-      - name: Upload installers      
-        if: success() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}-installers
-          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/**/*
+        run: snapx pack ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
           
   release:
      if: success() && github.ref == 'refs/heads/master'
@@ -156,21 +154,20 @@ jobs:
      needs: [setup, publish]  
      env:
       BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
+      SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
      steps:
-        - name: Download windows installers
-          if: success() 
-          uses: actions/download-artifact@v2
-          with:
-            name: windows-latest-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64
-
-        - name: Download linux installers
-          if: success() 
-          uses: actions/download-artifact@v2
-          with:
-            name: ubuntu-latest-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64
-            
+        - name: Checkout
+          uses: actions/checkout@v2.2.0
+        
+        - name: Setup dotnet using global.json
+          uses: actions/setup-dotnet@v1.5.0
+        
+        - name: Setup dotnet snapx
+          run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
+        
+        - name: Build installers
+          run: snapx restore -i
+        
         - name: Create github release tag
           uses: softprops/action-gh-release@v1
           with:
@@ -179,9 +176,9 @@ jobs:
             draft: true
             prerelease: false
             files: |
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-demoapp-test-web.exe
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-demoapp-production-web.exe
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-demoapp-test-web.bin
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-demoapp-production-web.bin
+              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-test-web.exe
+              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-production-web.exe
+              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-test-web.bin
+              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-production-web.bin
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
