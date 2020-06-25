@@ -187,7 +187,9 @@ jobs:
             draft: true
             prerelease: false
             files: |
+              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-test-offline.exe
               ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-test-web.exe
+              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-test-offline.bin
               ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-test-web.bin
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
