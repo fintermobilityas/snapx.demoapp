@@ -116,7 +116,7 @@ jobs:
       - name: Setup dotnet using global.json
         uses: actions/setup-dotnet@v1.5.0
           
-      - name: Setup dotnet nuget feeds
+      - name: Setup snapx update and push feed
         run: |
           dotnet nuget add source ${{ env.SNAPX_UPDATE_FEED_URL }} --name ${{ env.SNAPX_ID }}-update
           dotnet nuget add source ${{ secrets.SNAPX_PUBLISH_FEED_URL }} --name ${{ env.SNAPX_ID }}-publish
@@ -138,15 +138,22 @@ jobs:
           name: windows-latest-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/win-x64/${{ env.BUILD_VERSION }}
       
-      - name: Publish release to linux test channel
+      - name: Publish linux-x64 to test channel
         if: success() && matrix.os == 'ubuntu-latest'
         timeout-minutes: 15
-        run: snapx pack ${{ env.SNAPX_ID }} -r linux-x64 -v ${{ env.BUILD_VERSION }} --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
-      
-      - name: Publish release to windows test channel
+        run: snapx pack ${{ env.SNAPX_ID }} -r linux-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+     
+      - name: Publish win-x64 to test channel
         if: success() && matrix.os == 'windows-latest'
         timeout-minutes: 15
-        run: snapx pack ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        run: snapx pack ${{ env.SNAPX_ID }} -r win-x64 -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+     
+      - name: Upload installers      
+        if: success() 
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}-installers
+          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/**/*
           
   release:
      if: success() && github.ref == 'refs/heads/master'
@@ -157,17 +164,20 @@ jobs:
       BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
       SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
      steps:
-        - name: Checkout
-          uses: actions/checkout@v2.2.0
-        
-        - name: Setup dotnet using global.json
-          uses: actions/setup-dotnet@v1.5.0
-        
-        - name: Setup dotnet snapx
-          run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
-        
-        - name: Build installers
-          run: snapx restore -i
+     
+        - name: Download win-x64 installer
+          if: success() 
+          uses: actions/download-artifact@v2
+          with:
+            name: windows-latest-installers
+            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64
+
+        - name: Download linux-x64 installer
+          if: success() 
+          uses: actions/download-artifact@v2
+          with:
+            name: ubuntu-latest-installers
+            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64
         
         - name: Create github release tag
           uses: softprops/action-gh-release@v1
@@ -178,8 +188,6 @@ jobs:
             prerelease: false
             files: |
               ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-test-web.exe
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-production-web.exe
               ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-test-web.bin
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-production-web.bin
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
