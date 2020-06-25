@@ -15,7 +15,11 @@ TODO
 
 ### Getting started
 
-#### Install snapx dotnet 
+List all available releases
+
+![snapx list](https://media.githubusercontent.com/media/fintermobilityas/snapx.demoapp/develop/docs/snapxlist.png)
+
+#### Install snapx dotnet global tool
 
 - `dotnet tool update snapx -g`
 - `git clone https://github.com/fintermobilityas/snapx.demoapp.git`
