@@ -170,14 +170,14 @@ jobs:
           uses: actions/download-artifact@v2
           with:
             name: windows-latest-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64
+            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}
 
         - name: Download linux-x64 installer
           if: success() 
           uses: actions/download-artifact@v2
           with:
             name: ubuntu-latest-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64
+            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}
         
         - name: Create github release tag
           uses: softprops/action-gh-release@v1
