@@ -12,7 +12,6 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   SNAPX_ID: demoapp
   SNAPX_LOG_EXCEPTIONS: 1
-  SNAPX_UPDATE_FEED_URL: https://www.myget.org/F/demoapp2/api/v3/index.json
 
 jobs:
 
@@ -119,7 +118,6 @@ jobs:
           
       - name: Setup snapx update and push feed
         run: |
-          dotnet nuget add source ${{ env.SNAPX_UPDATE_FEED_URL }} --name ${{ env.SNAPX_ID }}-update
           dotnet nuget add source ${{ secrets.SNAPX_PUBLISH_FEED_URL }} --name ${{ env.SNAPX_ID }}-publish
         
       - name: Setup dotnet snapx
