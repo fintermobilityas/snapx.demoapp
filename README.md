@@ -23,8 +23,8 @@ After installing .NET Core SDK you must install Powershell. You can install it a
 
 **IMPORTANT** You must install the snapx dotnet tool. This can be done by executing `dotnet tool update snapx -g`. This will install the snapx tool globally on your machine. 
 
-`dotnet tool update snapx -g`
-`git clone https://github.com/fintermobilityas/snapx.demoapp.git`
+- `dotnet tool update snapx -g`
+- `git clone https://github.com/fintermobilityas/snapx.demoapp.git`
 
 ### What is a release channel?
 
