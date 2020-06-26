@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace demoapp
     [UsedImplicitly]
     public class MainWindow : Window
     {
+        bool _isRestart;
+
         readonly ISnapUpdateManagerProgressSource _updateProgressSource;
 
         public static MainWindowViewModel ViewModel { private get; set; }
@@ -31,6 +34,17 @@ namespace demoapp
             InitializeComponent();
 
             App.AttachDevTools(this);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (!_isRestart)
+            {
+                // If the user manually closes the application, the supervisor must be stopped.
+                // Otherwise the application will just be restarted.
+                Snapx.StopSupervisor();
+            }
+            base.OnClosing(e);
         }
 
         void InitializeComponent()
@@ -58,7 +72,11 @@ namespace demoapp
             ViewModel.NextVersion = "-";
             ViewModel.SnapxVersion = Snapx.Version?.ToFullString() ?? "-";
             ViewModel.CommandCheckForUpdates = ReactiveCommand.CreateFromTask(CommandCheckForUpdatesAsync);
-            ViewModel.CommandRestartApplication = ReactiveCommand.CreateFromTask( () => Dispatcher.UIThread.InvokeAsync(Close));
+            ViewModel.CommandRestartApplication = ReactiveCommand.CreateFromTask(() =>
+            {
+                _isRestart = true;
+                return Dispatcher.UIThread.InvokeAsync(Close);
+            });
             ViewModel.CommandOpenApplicationFolder = ReactiveCommand.Create(() =>
             {
                 var snapxWorkingDirectory = Snapx.WorkingDirectory;
