@@ -34,10 +34,10 @@ Google Chrome has three different release cadence channels (canary, beta, stable
 
 This can be done by editing `nuget.config` found in this directory. Change `demoapp-publish`, `demoapp-update` to `c:\demoapp_nupkgs`. On Linux you can use `/tmp/demoapp_nupkgs`. 
 
-*** Windows ***
+***Windows***
 
 1. Start a powershell terminal
-2. $env:SNAPX_DEMOAPP_LOCK_TOKEN="<insert random guid here>"
+2. `$env:SNAPX_DEMOAPP_LOCK_TOKEN="<insert random guid here>"`
 3. `.\build.ps1 -Version 1.0.0` (Build output can be found in in `.snapx/artifacts/1.0.0` directory)
 4. `snapx pack demoapp -r [win-x64|linux-x64] -v 1.0.0`
   
@@ -49,10 +49,10 @@ The application should now be running. Repeat step 3. and 4. and increment the m
 
 6. Tap the `Check for updates` button. The application should now update to version `1.0.1`
 
-*** Linux ***
+***Linux***
 
 1. Open a powershell terminal (pwsh)
-2. $env:SNAPX_DEMOAPP_LOCK_TOKEN="<insert random guid here>"
+2. `$env:SNAPX_DEMOAPP_LOCK_TOKEN="<insert random guid here>"`
 3. `.\build.ps1 -Version 1.0.0` (Build output can be found in in `.snapx/artifacts/1.0.0` directory)
 4. `snapx pack demoapp -r [win-x64|linux-x64] -v 1.0.0`
   
