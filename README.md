@@ -1,8 +1,10 @@
-# Snapx demoapp
+# 📖 Snapx Demo Application
 
 A simple cross platform demo for Snapx applications.
 
-![dependabot](https://api.dependabot.com/badges/status?host=github&repo=fintermobilityas/snapx.demoapp)
+![dependabot](https://api.dependabot.com/badges/status?host=github&repo=fintermobilityas/snapx.demoapp) [![Gitter](https://badges.gitter.im/fintermobilityas-snapx/community.svg)](https://gitter.im/fintermobilityas-snapx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![License](https://img.shields.io/github/license/fintermobilityas/snapx.demoapp.svg)
+
+![Size](https://img.shields.io/github/repo-size/fintermobilityas/snapx.svg) 
 
 | Build server | Platforms | Build status |
 |--------------|----------|--------------|
@@ -11,7 +13,7 @@ A simple cross platform demo for Snapx applications.
 
 ## Tutorial
 
-### Getting started
+### 🚀 Getting started
 
 #### List all available releases
 
