@@ -1,6 +1,6 @@
 # 📖 Snapx Demo Application
 
-A simple cross platform demo for Snapx applications.
+A simple xplat demo for installing and updating a snapx application.
 
 ![dependabot](https://api.dependabot.com/badges/status?host=github&repo=fintermobilityas/snapx.demoapp) [![Gitter](https://badges.gitter.im/fintermobilityas-snapx/community.svg)](https://gitter.im/fintermobilityas-snapx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![License](https://img.shields.io/github/license/fintermobilityas/snapx.demoapp.svg)
 
@@ -26,9 +26,25 @@ After installing .NET Core SDK you must install Powershell. You can install it a
 - `dotnet tool update snapx -g`
 - `git clone https://github.com/fintermobilityas/snapx.demoapp.git`
 
+### `snapx.yml`
+
+The `snapx.yml` file found in `.snapx/snapx.yml` (in this repository) describes the features your application requires. Monorepos are supported so you can have many applications in this file. 
+
+### Unattended updates
+
+`snapx` updates can be installed without user interaction. This is great for unattended applications. The demo application has button that is called `Check for updates`. There is nothing wrong with creating a background job (using either a `Thread`, `Task` or `Hangfire`) to check for updates every minute.
+
+### Delta updates
+
+`snapx` automatically creates a delta `nupkg` each time you run `snapx pack` command. This means that your end-users only have to download the bits that changes between releases. This is great for users that do not have a fast broadband connection or customers that live in rural areas with poor cellphone reception.
+
 ### What is a release channel?
 
 Google Chrome has three different release cadence channels (canary, beta, stable). The same concept is implemented in snapx. In this demo application there are two channels available, `test` and `production`. Each commit pushed to the `develop` branch produces a delta update that can be consumed by end-users. This is not a recommended practice though, it's only for demoing purposes. You should push releases when merging to `master` branch. 
+
+### What is a supervisor?
+
+A supervisor monitors your application. Snapx deploys a stub executable with your application. The shortcuts that are created during installation always points to this stub executable. Common use cases are automatic restart of application after an update or your application has experienced a crash. The demo application shows you how to start and stop the supervisor. It's entirely optional if you want to enable it.
 
 ### How can I test the update mechanism without pushing packages to a NuGet feed?
 
@@ -76,10 +92,19 @@ Because the installers are built using your dependency graph you never have to s
 
 You can restore the installers by executing `snapx restore --installers`. NB! You must execute this command inside this directory.
 
+Installation directories:
+
+**Windows**: `%LOCALAPPDATA%\demoapp`
+**Linux**: `$HOME/.local/demoapp`
+
 ### How can I promote a release to production?
 
 `snapx list`
 `snapx promote demoapp -r [win-x64|linux-x64] -c test`
+
+### Persistent assets
+
+It's common to have assets that should be persisted even if the installer is ran multiple times. In your `.snapx/snapx.yml` file you can set relative paths that will never be deleted when an application is reinstalled. For example if you add `application.json` to `persistentAssets` section this file will never be deleted. If you add `myimportantfolder` then this directory will never be deleted.
 
 ### Listing available release for all available channels
 
