@@ -11,13 +11,19 @@ A simple cross platform demo for Snapx applications.
 
 ## Tutorial
 
-TODO
-
 ### Getting started
 
-List all available releases
+#### List all available releases
 
 ![snapx list](https://media.githubusercontent.com/media/fintermobilityas/snapx.demoapp/develop/docs/snapxlist.png)
+
+#### What does the installer look like?
+
+<img src="https://media.githubusercontent.com/media/fintermobilityas/snapx/develop/docs/snapxinstaller.gif" width="794" />
+
+#### How can I update my application?
+
+<img src="https://media.githubusercontent.com/media/fintermobilityas/snapx.demoapp/develop/docs/demoappupdate.gif" width="794" />
 
 #### Install snapx dotnet global tool
 
