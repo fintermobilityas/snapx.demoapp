@@ -1,6 +1,6 @@
 # 📖 Snapx Demo Application
 
-A simple xplat demo for installing and updating a snapx application.
+A simple xplat demo for installing and updating a **[snapx](https://github.com/fintermobilityas/snapx)** application.
 
 ![dependabot](https://api.dependabot.com/badges/status?host=github&repo=fintermobilityas/snapx.demoapp) [![Gitter](https://badges.gitter.im/fintermobilityas-snapx/community.svg)](https://gitter.im/fintermobilityas-snapx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![License](https://img.shields.io/github/license/fintermobilityas/snapx.demoapp.svg)
 
