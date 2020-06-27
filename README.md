@@ -22,16 +22,15 @@ In order to get started you need to run `snapx restore --build-installers` which
 
 `snapx` uses a concept called variable expansion (see below). By the default the following directory layout is used:
 
-**`.snapx/artifacts`** contains your build artifacts. If you run `build.ps1 -Version 1.0.0` a new directory will be created `.snapx/artifacts/$app/$rid/1.0.0`.
-**`.snapx/assets`** contains assets for your applications. You don't need to worry about moving your existing assets to this directory it is only used for setting this application's icon. This can be seen if you open [snapx.yml](https://github.com/fintermobilityas/snapx.demoapp/blob/develop/.snapx/snapx.yml#L43).
-**`.snapx/installers`** contains installers for your applications. There are two types of installers `offline` and `web`. The installers are only built when you run `snapx pack` or `snapx restore -i`. 
-**`.snapx/packages`** contains the nuget packages `.nupkg` required to build a new release for your applications. There are two types of `nupkgs`, delta and full. A full package is only built when creating a `genesis` (full) release which contains everything required to run your application. When you build the next release a `delta` nupkg will be created. This `nupkg` contains only the files that has been updated or deleted. A binary diff algorithm has been implemented so only the bits that has change is included in your `delta` nupkg.
+- **`.snapx/artifacts`** contains your build artifacts. If you run `build.ps1 -Version 1.0.0` a new directory will be created `.snapx/artifacts/$app/$rid/1.0.0`.
+- **`.snapx/assets`** contains assets for your applications. You don't need to worry about moving your existing assets to this directory it is only used for setting this application's icon. This can be seen if you open [snapx.yml](https://github.com/fintermobilityas/snapx.demoapp/blob/develop/.snapx/snapx.yml#L43).
+- **`.snapx/installers`** contains installers for your applications. There are two types of installers `offline` and `web`. The installers are only built when you run `snapx pack` or `snapx restore -i`. 
+- **`.snapx/packages`** contains the nuget packages `.nupkg` required to build a new release for your applications. There are two types of `nupkgs`, delta and full. A full package is only built when creating a `genesis` (full) release which contains everything required to run your application. When you build the next release a `delta` nupkg will be created. This `nupkg` contains only the files that has been updated or deleted. A binary diff algorithm has been implemented so only the bits that has change is included in your `delta` nupkg.
 
 **Variable expansion**
-`$app` is the application name.
-`$rid` is a [dotnet runtime identifier](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog).
 
-`.snapx/packages/$app/$rid`
+- `$app` is the application name.
+- `$rid` is a [dotnet runtime identifier](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog).
 
 ### The `.snapx/snapx.yml` manifest file
 
