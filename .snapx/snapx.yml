@@ -1,11 +1,5 @@
 schema: 1
 
-# -- Check for new demoapp update feed:
-#    dotnet nuget add source https://www.myget.org/F/demoapp2/api/v3/index.json --name demoapp-update
-
-# -- Publish demoapp to this feed (remember to add myget username and password). Pre-authenticated feeds are supported.
-#    dotnet nuget add source https://www.myget.org/F/demoapp2/api/v3/index.json --name demoapp-publish
-
 channels:
 - name: test
   pushFeed: !nuget
@@ -18,8 +12,9 @@ channels:
   updateFeed: !nuget
     name: demoapp-update
 
-# In order to publish to ensure that snapx works in a distributed
-# environment you have to generate a unique uuid:
+# You have to set a unique token in order to ensure that only one snapx instance
+# is able to push packages to your NuGet feed. This token can be random text string
+# but it's recommended to generate a random UUID. Please see link below.
 
 ##### UNCOMMENT START ####
 #generic:
@@ -28,7 +23,9 @@ channels:
 
 apps:
 - id: demoapp 
-  # You must generate a unique uuid using https://www.guidgenerator.com/online-guid-generator.aspx
+  # In order to ensure that only one instance of the supervisor is running per application
+  # you must generate a random unique id. You can find an online UUID generator 
+  # by visiting the following link: https://www.guidgenerator.com/online-guid-generator.aspx
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
