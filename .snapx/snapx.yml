@@ -39,6 +39,19 @@ apps:
   targets:
   - os: windows
     framework: netcoreapp3.1
+    rid: win-x86
+    icon: .snapx/assets/icons/demoapp.ico
+    installers:
+    - web
+    - offline
+    shortcuts:
+    - desktop
+    - startup
+    - startmenu
+    persistentAssets:
+    - application.json
+  - os: windows
+    framework: netcoreapp3.1
     rid: win-x64
     icon: .snapx/assets/icons/demoapp.ico
     installers:

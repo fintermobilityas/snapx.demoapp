@@ -8,30 +8,17 @@ param(
     [ValidateSet("Debug", "Release")]
     [string] $Configuration = "Release",
     [Parameter(Position = 2, ValueFromPipeline = $true)]
-    [string] $SnapxToken = $null
+    [string] $SnapxToken = $null,
+    [Parameter(Position = 3, ValueFromPipeline = $true)]
+    [ValidateSet("win-x86", "win-x64", "linux-x64")]
+    [string] $Rid
 )
 
 $WorkingDirectory = Split-Path -parent $MyInvocation.MyCommand.Definition
 . $WorkingDirectory\common.ps1
 
 $Framework = "netcoreapp3.1"
-$OSPlatform = $null
-$Rid = $null
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
-
-switch -regex ([Environment]::OSVersion) {
-    "^Microsoft Windows" {
-        $OSPlatform = "Windows"
-        $Rid = "win-x64"
-    }
-    "^Unix" {
-        $OSPlatform = "Unix"
-        $Rid = "linux-x64"   
-    }	
-    default {
-        Write-Error "Unsupported os: $OSVersion"
-    }
-}
 
 $BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\demoapp\$Rid\$Version
 $SnapxYmlFilenamePath = Join-Path $WorkingDirectory .snapx\snapx.yml
