@@ -71,6 +71,7 @@ namespace demoapp
             ViewModel.CurrentApplicationId = snapUpdateManager?.ApplicationId ?? "-";
             ViewModel.NextVersion = "-";
             ViewModel.SnapxVersion = Snapx.Version?.ToFullString() ?? "-";
+            ViewModel.Rid = snapApp?.Target.Rid ?? "-";
             ViewModel.CommandCheckForUpdates = ReactiveCommand.CreateFromTask(CommandCheckForUpdatesAsync);
             ViewModel.CommandRestartApplication = ReactiveCommand.CreateFromTask(() =>
             {
