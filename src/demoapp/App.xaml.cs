@@ -3,10 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Diagnostics;
-using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using demoapp.ViewModels;
@@ -184,11 +181,5 @@ namespace demoapp
             LogManager.ReconfigExistingLoggers();
         }
         
-             
-        public static void AttachDevTools(Window window)
-        {
-            DevTools.Attach(window, KeyGesture.Parse("CTRL+F12"));
-        }
-
     }
 }

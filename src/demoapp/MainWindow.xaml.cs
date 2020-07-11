@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
@@ -32,8 +31,6 @@ namespace demoapp
             _updateProgressSource = new SnapUpdateManagerProgressSource();
 
             InitializeComponent();
-
-            App.AttachDevTools(this);
         }
 
         protected override void OnClosing(CancelEventArgs e)
