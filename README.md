@@ -38,11 +38,11 @@ In order to get started you need to run `snapx restore --build-installers` which
 
 ### Required software for this tutorial
 
-- [.NET Core SDK 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+- [.NET SDK 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
 - [Powershell v7](https://github.com/PowerShell/powershell/releases)
 - [snapx](https://github.com/fintermobilityas/snapx)
 
-1. Please follow installation instructions for .NET Core SDK that can be installed by visiting this [link](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+1. Please follow installation instructions for .NET SDK that can be installed by visiting this [link](https://dotnet.microsoft.com/download/dotnet/5.0).
 2. After installing the SDK the next step is to install Powershell (only a required for this demo). You can install Powershell running `dotnet tool update powershell -g`. This command installs Powershell as [global dotnet tool](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install) on your computer machine.
 3. The final step is to install `snapx` by running `dotnet tool update snapx -g`
 

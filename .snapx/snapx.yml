@@ -38,7 +38,7 @@ apps:
   - production
   targets:
   - os: windows
-    framework: netcoreapp3.1
+    framework: net5.0
     rid: win-x86
     icon: .snapx/assets/icons/demoapp.ico
     installers:
@@ -51,7 +51,7 @@ apps:
     persistentAssets:
     - application.json
   - os: windows
-    framework: netcoreapp3.1
+    framework: net5.0
     rid: win-x64
     icon: .snapx/assets/icons/demoapp.ico
     installers:
@@ -64,7 +64,7 @@ apps:
     persistentAssets:
     - application.json
   - os: linux
-    framework: netcoreapp3.1
+    framework: net5.0
     rid: linux-x64
     icon: .snapx/assets/icons/demoapp.svg
     installers:
