@@ -27,13 +27,16 @@ jobs:
         with:
           fetch-depth: 0
   
-      - name: Setup dotnet using global.json        
+      - name: Setup dotnet sdk 3.1          
         uses: actions/setup-dotnet@v1.5.0
+        with:
+          dotnet-version: 3.1.x
 
       - id: set-build-version
         name: Read current application version
         shell: pwsh
         run: |
+          Remove-Item global.json
           dotnet tool update GitVersion.Tool --global --version ${{ env.GITVERSION_VERSION }}
           $BUILD_VERSION = (dotnet gitversion /showVariable NugetVersionv2) | out-string
           echo "::set-output name=BUILD_VERSION::$BUILD_VERSION"
