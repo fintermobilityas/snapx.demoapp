@@ -17,7 +17,7 @@ param(
 $WorkingDirectory = Split-Path -parent $MyInvocation.MyCommand.Definition
 . $WorkingDirectory\common.ps1
 
-$Framework = "netcoreapp3.1"
+$Framework = "net5.0"
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
 
 $BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\demoapp\$Rid\$Version
