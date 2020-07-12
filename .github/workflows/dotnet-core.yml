@@ -149,7 +149,10 @@ jobs:
       
       - name: Publish ${{ matrix.rid }} to test channel
         timeout-minutes: 30
-        run: snapx pack ${{ env.SNAPX_ID }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        shell: pwsh
+        run: |
+          Remove-Item global.json
+          snapx pack ${{ env.SNAPX_ID }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
         
       - name: Upload installers      
         if: success() 
