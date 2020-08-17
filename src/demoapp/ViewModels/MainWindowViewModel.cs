@@ -16,6 +16,7 @@ namespace demoapp.ViewModels
         bool _isSnapPacked;
         string _snapxVersion;
         string _title;
+        string _rid;
 
         bool _viewIsDefault;
         bool _viewIsCheckingForUpdates;
@@ -74,6 +75,12 @@ namespace demoapp.ViewModels
         {
             get => _snapxVersion;
             set => this.RaiseAndSetIfChanged(ref _snapxVersion, value);
+        }
+
+        public string Rid
+        {
+            get => _rid;
+            set => this.RaiseAndSetIfChanged(ref _rid, value);
         }
 
         public int UpdateProgressPercentage

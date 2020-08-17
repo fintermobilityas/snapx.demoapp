@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
@@ -32,8 +31,6 @@ namespace demoapp
             _updateProgressSource = new SnapUpdateManagerProgressSource();
 
             InitializeComponent();
-
-            App.AttachDevTools(this);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -71,6 +68,7 @@ namespace demoapp
             ViewModel.CurrentApplicationId = snapUpdateManager?.ApplicationId ?? "-";
             ViewModel.NextVersion = "-";
             ViewModel.SnapxVersion = Snapx.Version?.ToFullString() ?? "-";
+            ViewModel.Rid = snapApp?.Target.Rid ?? "-";
             ViewModel.CommandCheckForUpdates = ReactiveCommand.CreateFromTask(CommandCheckForUpdatesAsync);
             ViewModel.CommandRestartApplication = ReactiveCommand.CreateFromTask(() =>
             {

@@ -1,7 +1,7 @@
 <Project>
 
     <PropertyGroup>
-        <LangVersion>8.0</LangVersion>
+        <LangVersion>9.0</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <SnapxVersion>2.6.7</SnapxVersion>
+        <SnapxVersion>2.8.3-prerelease0017</SnapxVersion>
     </PropertyGroup>
 
 </Project>
