@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <AvaloniaVersion>0.10.0-preview5</AvaloniaVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net5.0</TargetFrameworks>
     <AssemblyName>demoapp</AssemblyName>
@@ -15,9 +18,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.0-preview3" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0-preview3" />
+    <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Snapx.Core" Version="$(SnapxVersion)" />
-    <PackageReference Include="NLog.Config" Version="4.7.3" />
+    <PackageReference Include="NLog.Config" Version="4.7.4" />
   </ItemGroup>
 </Project>
