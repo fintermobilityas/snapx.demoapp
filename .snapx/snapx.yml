@@ -23,6 +23,9 @@ channels:
 
 apps:
 - id: demoapp 
+  # The the main executable name. On Windows this value expands to demoapp.exe.
+  # This property is not required if the application id equals the main executable name.
+  main: demoapp 
   # In order to ensure that only one instance of the supervisor is running per application
   # you must generate a random unique id. You can find an online UUID generator 
   # by visiting the following link: https://www.guidgenerator.com/online-guid-generator.aspx
