@@ -6,8 +6,7 @@
 
 | Build server | Platforms | Build status |
 |--------------|----------|--------------|
-| Github Actions | ubuntu-latest, windows-latest | develop ![snapx.demoapp](https://github.com/fintermobilityas/snapx.demoapp/workflows/demoapp/badge.svg?branch=develop) |
-| Github Actions | ubuntu-latest, windows-latest | master ![snapx.demoapp](https://github.com/fintermobilityas/snapx.demoapp/workflows/demoapp/badge.svg?branch=master) |
+| Github Actions | linux-x64, linux-arm64, win-x86, win-x64 | develop ![snapx.demoapp](https://github.com/fintermobilityas/snapx.demoapp/workflows/demoapp/badge.svg?branch=develop) |
 
 ## Tutorial
 

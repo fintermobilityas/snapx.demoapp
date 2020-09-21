@@ -75,3 +75,15 @@ apps:
     - startup
     persistentAssets:
     - application.json
+  - os: linux
+    framework: net5.0
+    rid: linux-arm64
+    icon: .snapx/assets/icons/demoapp.svg
+    installers:
+    - web
+    - offline
+    shortcuts:
+    - desktop
+    - startup
+    persistentAssets:
+    - application.json
