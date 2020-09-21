@@ -10,7 +10,7 @@ param(
     [Parameter(Position = 2, ValueFromPipeline = $true)]
     [string] $SnapxToken = $null,
     [Parameter(Position = 3, ValueFromPipeline = $true)]
-    [ValidateSet("win-x86", "win-x64", "linux-x64")]
+    [ValidateSet("win-x86", "win-x64", "linux-x64", "linux-arm64")]
     [string] $Rid
 )
 
@@ -39,11 +39,11 @@ switch($Target) {
 
     }
     "Set-Snapx-Token" {
-        
+
         Write-Output-Colored "Replacing snapx lock token"
 
         $SnapxYmlContent = (Get-Content $SnapxYmlFilenamePath) -replace "token:.*", "token: ${SnapxToken}"
-        
+
         if($SnapxYmlContent -match "token: ${SnapxToken}") {
             $SnapxYmlContent | Out-File $SnapxYmlFilenamePath -Encoding $Utf8NoBomEncoding
             Write-Output "Successfully replaced snapx lock token"
