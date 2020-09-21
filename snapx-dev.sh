@@ -1,3 +1,3 @@
 #!/bin/bash
-dotnet build -c Debug ../Snapx/src/Snapx.csproj
-dotnet ../Snapx/src/Snapx/bin/Debug/net5.0/snapx.dll $*
+dotnet build -c Debug ../snapx/src/Snapx.csproj
+dotnet ../snapx/src/Snapx/bin/Debug/net5.0/snapx.dll $*
