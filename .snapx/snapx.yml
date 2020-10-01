@@ -23,6 +23,7 @@ channels:
 
 apps:
 - id: demoapp-win-x86
+  main: demoapp
   install-directory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
@@ -50,6 +51,7 @@ apps:
     - application.json
 
 - id: demoapp-win-x64
+  main: demoapp
   install-directory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
@@ -77,6 +79,7 @@ apps:
     - application.json
 
 - id: demoapp-linux-x64
+  main: demoapp
   install-directory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
@@ -103,6 +106,7 @@ apps:
     - application.json
 
 - id: demoapp-linux-arm64
+  main: demoapp
   install-directory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
