@@ -22,10 +22,8 @@ channels:
 ##### UNCOMMENT END ######
 
 apps:
-- id: demoapp 
-  # In order to ensure that only one instance of the supervisor is running per application
-  # you must generate a random unique id. You can find an online UUID generator 
-  # by visiting the following link: https://www.guidgenerator.com/online-guid-generator.aspx
+- id: demoapp-win-x86
+  install-directory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
@@ -50,6 +48,20 @@ apps:
     - startmenu
     persistentAssets:
     - application.json
+
+- id: demoapp-win-x64
+  install-directory: demoapp
+  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+  nuspec:
+    description: Snapx demoapp
+    releaseNotes: Demoapp release notes
+    authors: Finter Mobility As
+    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+    repositoryType: git
+  channels:
+  - test
+  - production
+  targets:
   - os: windows
     framework: net5.0
     rid: win-x64
@@ -63,6 +75,20 @@ apps:
     - startmenu
     persistentAssets:
     - application.json
+
+- id: demoapp-linux-x64
+  install-directory: demoapp
+  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+  nuspec:
+    description: Snapx demoapp
+    releaseNotes: Demoapp release notes
+    authors: Finter Mobility As
+    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+    repositoryType: git
+  channels:
+  - test
+  - production
+  targets:
   - os: linux
     framework: net5.0
     rid: linux-x64
@@ -75,6 +101,20 @@ apps:
     - startup
     persistentAssets:
     - application.json
+
+- id: demoapp-linux-arm64
+  install-directory: demoapp
+  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+  nuspec:
+    description: Snapx demoapp
+    releaseNotes: Demoapp release notes
+    authors: Finter Mobility As
+    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+    repositoryType: git
+  channels:
+  - test
+  - production
+  targets:
   - os: linux
     framework: net5.0
     rid: linux-arm64
