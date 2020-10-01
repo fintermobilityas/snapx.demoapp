@@ -20,7 +20,7 @@ $WorkingDirectory = Split-Path -parent $MyInvocation.MyCommand.Definition
 $Framework = "net5.0"
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
 
-$BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\demoapp\$Rid\$Version
+$BuildOutputDirectory = Join-Path $WorkingDirectory .snapx\artifacts\demoapp-$Rid\$Rid\$Version
 $SnapxYmlFilenamePath = Join-Path $WorkingDirectory .snapx\snapx.yml
 
 switch($Target) {
