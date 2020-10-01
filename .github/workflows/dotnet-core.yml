@@ -11,7 +11,6 @@ env:
   DOTNET_SDK_VERSION: 5.0.100-rc.1.20452.10
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1 
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  SNAPX_ID: demoapp
   SNAPX_LOG_EXCEPTIONS: 1
 
 jobs:
@@ -57,12 +56,16 @@ jobs:
       matrix: 
         include:
           - os: ubuntu-latest
+            id: demoapp-linux-arm64
             rid: linux-arm64
           - os: ubuntu-latest
+            id: demoapp-linux-x64
             rid: linux-x64
           - os: windows-latest
+            id: demoapp-win-x86
             rid: win-x86
           - os: windows-latest
+            id: demoapp-win-x64
             rid: win-x64
     env:
       BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
@@ -87,8 +90,8 @@ jobs:
         if: success() 
         uses: actions/upload-artifact@v2.0.1
         with:
-          name: ${{ matrix.rid }}-artifacts
-          path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
+          name: ${{ matrix.id }}-artifacts
+          path: ${{ github.workspace }}/.snapx/artifacts/${{ matrix.id }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
           
   publish:
     if: success()
@@ -116,85 +119,17 @@ jobs:
           
       - name: Setup snapx update and push feed
         run: |
-          dotnet nuget add source ${{ secrets.SNAPX_PUBLISH_FEED_URL }} --name ${{ env.SNAPX_ID }}-publish
+          dotnet nuget add source ${{ secrets.SNAPX_PUBLISH_FEED_URL }} --name demoapp-publish
         
       - name: Setup dotnet snapx
         run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
         
-      - name: Download ${{ matrix.rid }}-artifacts
+      - name: Download ${{ matrix.id }}-artifacts
         uses: actions/download-artifact@v2
         with:
-          name: ${{ matrix.rid }}-artifacts
-          path: ${{ github.workspace }}/.snapx/artifacts/${{ env.SNAPX_ID }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
+          name: ${{ matrix.id }}-artifacts
+          path: ${{ github.workspace }}/.snapx/artifacts/${{ matrix.id }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
       
-      - name: Publish ${{ matrix.rid }} to test channel
+      - name: Publish ${{ matrix.id }} to test channel
         timeout-minutes: 60
-        run: snapx pack ${{ env.SNAPX_ID }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
-        
-      - name: Upload installers      
-        if: success() 
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.rid }}-installers
-          path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/**/*
-          
-  release:
-     if: success() && github.ref == 'refs/heads/master'
-     name: Create release and upload assets
-     runs-on: ubuntu-latest
-     needs: [setup, publish]  
-     env:
-      BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
-      SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
-     steps:
-
-        - name: Download win-x86-installers installer
-          if: success() 
-          uses: actions/download-artifact@v2
-          with:
-            name: win-x86-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}
-
-        - name: Download win-x64-installers installer
-          if: success() 
-          uses: actions/download-artifact@v2
-          with:
-            name: win-x64-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}
-
-        - name: Download linux-x64-installers installer
-          if: success() 
-          uses: actions/download-artifact@v2
-          with:
-            name: linux-x64-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}
-
-        - name: Download linux-arm64-installers installer
-          if: success() 
-          uses: actions/download-artifact@v2
-          with:
-            name: linux-arm64-installers
-            path: ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}
-            
-        - name: Create github release tag
-          uses: softprops/action-gh-release@v1
-          with:
-            name: Release v${{ env.BUILD_VERSION }}
-            tag_name: v${{ env.BUILD_VERSION }}
-            draft: true
-            prerelease: false
-            files: |
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x86/Setup-win-x86-${{ env.SNAPX_ID }}-test-offline.exe
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x86/Setup-win-x86-${{ env.SNAPX_ID }}-test-web.exe
-              
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-test-offline.exe
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/win-x64/Setup-win-x64-${{ env.SNAPX_ID }}-test-web.exe
-              
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-test-offline.bin
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-x64/Setup-linux-x64-${{ env.SNAPX_ID }}-test-web.bin
-
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-arm64/Setup-linux-arm64-${{ env.SNAPX_ID }}-test-offline.bin
-              ${{ github.workspace }}/.snapx/installers/${{ env.SNAPX_ID }}/linux-arm64/Setup-linux-arm64-${{ env.SNAPX_ID }}-test-web.bin
-
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
+        run: snapx pack ${{ matrix.id }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
