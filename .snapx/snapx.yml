@@ -24,7 +24,7 @@ channels:
 apps:
 - id: demoapp-win-x86
   main: demoapp
-  install-directory: demoapp
+  installDirectory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
@@ -52,7 +52,7 @@ apps:
 
 - id: demoapp-win-x64
   main: demoapp
-  install-directory: demoapp
+  installDirectory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
@@ -80,7 +80,7 @@ apps:
 
 - id: demoapp-linux-x64
   main: demoapp
-  install-directory: demoapp
+  installDirectory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
@@ -107,7 +107,7 @@ apps:
 
 - id: demoapp-linux-arm64
   main: demoapp
-  install-directory: demoapp
+  installDirectory: demoapp
   supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
   nuspec:
     description: Snapx demoapp
