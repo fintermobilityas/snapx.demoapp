@@ -22,6 +22,11 @@ jobs:
       BUILD_VERSION: ${{ steps.set-build-version.outputs.BUILD_VERSION }}
       SNAPX_VERSION: ${{ steps.set-snapx-version.outputs.SNAPX_VERSION }}
     steps:
+      - name: Disallow Concurrent Runs
+        uses: byu-oit/github-action-disallow-concurrent-runs@v1.0.1
+        with:
+          token: ${{ github.token }}
+          
       - name: Checkout
         uses: actions/checkout@v2.3.2
         with:
