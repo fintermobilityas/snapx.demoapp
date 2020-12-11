@@ -52,17 +52,29 @@
                 <TextBlock Grid.Column="1" Grid.Row="6" Classes="display3" Text="{Binding Rid}"  />
             </Grid>
 
-            <Button Command="{Binding CommandOpenApplicationFolder}">
-                <TextBlock Text="Open application folder" />
-            </Button>
+            <Grid Margin="50 20 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-            <Button Command="{Binding CommandCheckForUpdates}">
-                <TextBlock Text="Check for updates" />
-            </Button>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <Button Command="{Binding CommandRestartApplication}" IsEnabled="{Binding IsSnapPacked}">
-                <TextBlock Text="Tap to restart application" />
-            </Button>
+                <Button Command="{Binding CommandOpenApplicationFolder}" Grid.Column="0" Grid.Row="0">
+                    <TextBlock Text="Open application folder" />
+                </Button>
+
+                <Button Command="{Binding CommandCheckForUpdates}" Grid.Column="0" Grid.Row="1">
+                    <TextBlock Text="Check for updates" />
+                </Button>
+
+                <Button Command="{Binding CommandRestartApplication}" IsEnabled="{Binding IsSnapPacked}" Grid.Column="0" Grid.Row="2">
+                    <TextBlock Text="Tap to restart application" />
+                </Button>
+            </Grid>
         </StackPanel>
 
         <!-- View: Check for updates -->
