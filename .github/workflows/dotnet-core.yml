@@ -93,7 +93,7 @@ jobs:
           
       - name: Upload artifacts 
         if: success() 
-        uses: actions/upload-artifact@v2.2.1
+        uses: actions/upload-artifact@v2.2.2
         with:
           name: ${{ matrix.id }}-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ matrix.id }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
