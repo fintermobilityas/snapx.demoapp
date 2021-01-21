@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <SnapxVersion>3.0.7</SnapxVersion>
+        <SnapxVersion>3.0.8-prerelease0010</SnapxVersion>
     </PropertyGroup>
 
 </Project>
