@@ -17,6 +17,7 @@ namespace demoapp.ViewModels
         string _snapxVersion;
         string _title;
         string _rid;
+        string _uptime;
 
         bool _viewIsDefault;
         bool _viewIsCheckingForUpdates;
@@ -81,6 +82,12 @@ namespace demoapp.ViewModels
         {
             get => _rid;
             set => this.RaiseAndSetIfChanged(ref _rid, value);
+        }
+
+        public string Uptime
+        {
+            get => _uptime;
+            set => this.RaiseAndSetIfChanged(ref _uptime, value);
         }
 
         public int UpdateProgressPercentage

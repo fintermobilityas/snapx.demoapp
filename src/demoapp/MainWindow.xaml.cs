@@ -115,6 +115,23 @@ namespace demoapp
             DataContext = ViewModel;
 
             AvaloniaXamlLoader.Load(this);
+
+            Task.Run(async () =>
+            {
+                var sw = new Stopwatch();
+                sw.Restart();
+
+                while (!_isRestart)
+                {
+
+                    await Dispatcher.UIThread.InvokeAsync(() =>
+                    {
+                        ViewModel.Uptime = sw.Elapsed.ToString("g");
+                    });
+
+                    await Task.Delay(1000);
+                }
+            });
         }
 
         async Task CommandCheckForUpdatesAsync()
