@@ -37,7 +37,7 @@ In order to get started you need to run `snapx restore --build-installers` which
 
 ### Required software for this tutorial
 
-- [.NET SDK 5.0](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [.NET SDK 6.0](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [Powershell v7](https://github.com/PowerShell/powershell/releases)
 - [snapx](https://github.com/fintermobilityas/snapx)
 

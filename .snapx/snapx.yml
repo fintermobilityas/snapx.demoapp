@@ -37,7 +37,7 @@ apps:
   - production
   target:
     os: windows
-    framework: net5.0
+    framework: net6.0
     rid: win-x86
     icon: .snapx/assets/icons/demoapp.ico
     installers:
@@ -65,7 +65,7 @@ apps:
   - production
   target:
     os: windows
-    framework: net5.0
+    framework: net6.0
     rid: win-x64
     icon: .snapx/assets/icons/demoapp.ico
     installers:
@@ -93,7 +93,7 @@ apps:
   - production
   target:
     os: linux
-    framework: net5.0
+    framework: net6.0
     rid: linux-x64
     icon: .snapx/assets/icons/demoapp.svg
     installers:
@@ -120,7 +120,7 @@ apps:
   - production
   target:
     os: linux
-    framework: net5.0
+    framework: net6.0
     rid: linux-arm64
     icon: .snapx/assets/icons/demoapp.svg
     installers:
