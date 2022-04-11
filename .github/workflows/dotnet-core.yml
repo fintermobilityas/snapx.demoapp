@@ -137,7 +137,7 @@ jobs:
         run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
         
       - name: Download ${{ matrix.id }}-artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: ${{ matrix.id }}-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ matrix.id }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
