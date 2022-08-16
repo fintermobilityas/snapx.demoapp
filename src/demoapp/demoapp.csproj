@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AvaloniaVersion>0.10.17</AvaloniaVersion>
+    <AvaloniaVersion>0.10.18</AvaloniaVersion>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
