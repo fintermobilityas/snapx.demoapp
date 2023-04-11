@@ -1,7 +1,7 @@
 <Project>
 
     <PropertyGroup>
-        <LangVersion>10.0</LangVersion>
+        <LangVersion>11.0</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -14,10 +14,6 @@
         <RepositoryUrl>https://github.com/fintermobilityas/snapx.demoapp.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageOutputPath Condition="$(PackageOutputPath) == ''">$(MSBuildThisFileDirectory)\nupkgs</PackageOutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <SnapxVersion>5.1.1</SnapxVersion>
     </PropertyGroup>
 
 </Project>
