@@ -42,15 +42,15 @@ jobs:
         run: |
           dotnet tool update GitVersion.Tool --global --version ${{ env.GITVERSION_VERSION }}
           $BUILD_VERSION = (dotnet gitversion /showVariable NugetVersionv2) | out-string
-          echo "::set-output name=BUILD_VERSION::$BUILD_VERSION"
+          echo "BUILD_VERSION=$BUILD_VERSION" >> $env:GITHUB_PATH
 
       - id: set-snapx-version
         name: Read current snapx version
         shell: pwsh
         run: |
-         [xml] $xml_content = Get-Content ".\$GITHUB_WORKSPACE\Directory.Build.props";
+         [xml] $xml_content = Get-Content ".\$GITHUB_WORKSPACE\Directory.Packages.props";
          $SNAPX_VERSION = Select-Xml -Xml $xml_content -XPath "//Project/PropertyGroup/SnapxVersion" | Select -Expand Node | Select -Expand "#text"
-         echo "::set-output name=SNAPX_VERSION::$SNAPX_VERSION"
+         echo "SNAPX_VERSION=$SNAPX_VERSION" >> $env:GITHUB_PATH
 
   build:
     name: Build ${{ matrix.os }}-${{ matrix.rid }}
