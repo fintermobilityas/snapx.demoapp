@@ -5,12 +5,12 @@ channels:
   pushFeed: !nuget
     name: demoapp-publish
   updateFeed: !http 
-    source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/github.json
+    source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/myget.json
 - name: production
   pushFeed: !nuget
     name: demoapp-publish
   updateFeed: !http
-    source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/github.json
+    source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/myget.json
 
 # You have to set a unique token in order to ensure that only one snapx instance
 # is able to push packages to your NuGet feed. This token can be random text string

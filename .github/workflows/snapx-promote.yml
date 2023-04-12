@@ -4,9 +4,8 @@ on:
     types: [published]
       
 env:
-  DOTNET_NET60_VERSION: 7.0.202
-  FINTER_NUGET_FEED: https://nuget.pkg.github.com/fintermobilityas/index.json
-  
+  DOTNET_NET60_VERSION: 7.0.203
+
 jobs:
   publish:
     name: Publish ${{ matrix.name }} (${{ github.ref }})
@@ -57,7 +56,7 @@ jobs:
           dotnet tool update snapx --global --version $snapx_version
                     
       - name: Setup snapx push feed
-        run: dotnet nuget add source ${{ env.FINTER_NUGET_FEED }} --name demoapp-publish --username ${{ secrets.SNAPX_GITHUB_USERNAME }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+        run: dotnet nuget add source ${{ secrets.MYGET_FEED_URL }} --name demoapp-publish
            
       - name: Publish 
         shell: pwsh
