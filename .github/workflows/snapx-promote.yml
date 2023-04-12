@@ -56,8 +56,7 @@ jobs:
           dotnet tool update snapx --global --version $snapx_version
                     
       - name: Setup snapx push feed
-        run: |
-          dotnet nuget add source ${{ secrets.GITHUB_TOKEN }} --name demoapp-publish
+        run: dotnet nuget update source demoapp-publish -k ${{ secrets.GITHUB_TOKEN }} 
           
       - name: Publish 
         shell: pwsh

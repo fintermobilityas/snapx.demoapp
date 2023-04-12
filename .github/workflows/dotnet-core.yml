@@ -130,7 +130,7 @@ jobs:
           dotnet-version: '${{ env.DOTNET_SDK_VERSION }}'
           
       - name: Setup snapx push feed
-        run: dotnet nuget add source ${{ secrets.GITHUB_TOKEN }} --name demoapp-publish
+        run: dotnet nuget update source demoapp-publish -k ${{ secrets.GITHUB_TOKEN }} 
         
       - name: Setup dotnet snapx
         run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
