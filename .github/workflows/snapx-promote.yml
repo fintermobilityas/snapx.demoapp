@@ -5,6 +5,7 @@ on:
       
 env:
   DOTNET_NET60_VERSION: 7.0.202
+  FINTER_NUGET_FEED: https://nuget.pkg.github.com/fintermobilityas/index.json
   
 jobs:
   publish:
@@ -56,8 +57,8 @@ jobs:
           dotnet tool update snapx --global --version $snapx_version
                     
       - name: Setup snapx push feed
-        run: dotnet nuget update source demoapp-publish -k ${{ secrets.GITHUB_TOKEN }} 
-          
+        run: dotnet nuget add source ${{ env.FINTER_NUGET_FEED }} --name demoapp-publish --username ${{ secrets.SNAPX_GITHUB_USERNAME }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+           
       - name: Publish 
         shell: pwsh
         run: |
