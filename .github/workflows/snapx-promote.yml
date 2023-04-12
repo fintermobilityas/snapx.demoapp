@@ -55,9 +55,9 @@ jobs:
           $snapx_version = Select-Xml -Xml $xml_content -XPath "//Project/PropertyGroup/SnapxVersion" | Select -Expand Node | Select -Expand "#text"
           dotnet tool update snapx --global --version $snapx_version
                     
-      - name: Setup snapx update and push feed
+      - name: Setup snapx push feed
         run: |
-          dotnet nuget add source ${{ secrets.DEMOAPP_MYGET_PUBLISH_KEY }} --name demoapp-publish
+          dotnet nuget add source ${{ secrets.GITHUB_TOKEN }} --name demoapp-publish
           
       - name: Publish 
         shell: pwsh
