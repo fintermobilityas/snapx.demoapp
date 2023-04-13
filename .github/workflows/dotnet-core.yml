@@ -100,20 +100,24 @@ jobs:
   publish:
     if: success()
     name: Publish ${{ matrix.rid }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: [setup, build]
     strategy:
       fail-fast: false
       matrix: 
         include:
-        - id: demoapp-linux-arm64
-          rid: linux-arm64
-        - id: demoapp-linux-x64
-          rid: linux-x64
-        - id: demoapp-win-x86
-          rid: win-x86
-        - id: demoapp-win-x64
-          rid: win-x64
+          - os: ubuntu-latest
+            id: demoapp-linux-arm64
+            rid: linux-arm64
+          - os: ubuntu-latest
+            id: demoapp-linux-x64
+            rid: linux-x64
+          - os: windows-latest
+            id: demoapp-win-x86
+            rid: win-x86
+          - os: windows-latest
+            id: demoapp-win-x64
+            rid: win-x64
     env:
       BUILD_VERSION: ${{ needs.setup.outputs.BUILD_VERSION }}
       SNAPX_VERSION: ${{ needs.setup.outputs.SNAPX_VERSION }}
