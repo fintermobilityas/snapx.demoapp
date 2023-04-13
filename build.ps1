@@ -9,7 +9,7 @@ param(
     [string] $Configuration = "Release",
     [Parameter(Position = 2, ValueFromPipeline = $true)]
     [string] $SnapxToken = $null,
-    [Parameter(Position = 3, ValueFromPipeline = $true)]
+    [Parameter(Position = 3, Mandatory=$true, ValueFromPipeline = $true)]
     [ValidateSet("win-x86", "win-x64", "linux-x64", "linux-arm64")]
     [string] $Rid
 )
