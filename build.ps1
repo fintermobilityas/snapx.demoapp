@@ -28,7 +28,7 @@ switch($Target) {
         Resolve-Shell-Dependency dotnet
 
         Invoke-Command-Colored dotnet @(
-            ("publish {0}" -f (Join-Path $WorkingDirectory Demoapp.sln))
+            ("publish {0}" -f (Join-Path $WorkingDirectory src/demoapp/demoapp.csproj))
             "/p:Version=$Version"
             "--runtime $Rid"
             "--self-contained"
