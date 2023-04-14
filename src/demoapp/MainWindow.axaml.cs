@@ -124,7 +124,7 @@ internal sealed partial class MainWindow : Window
 
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    ViewModel.Uptime = sw.Elapsed.ToString("g");
+                    ViewModel.Uptime = sw.Elapsed.ToString("dd\\:hh\\:mm\\:ss");
                 });
 
                 await Task.Delay(1000);
