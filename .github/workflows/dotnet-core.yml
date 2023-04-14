@@ -141,10 +141,12 @@ jobs:
         with:
           name: ${{ matrix.id }}-artifacts
           path: ${{ github.workspace }}/.snapx/artifacts/${{ matrix.id }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
-      
+
+      - name: Add demoapp nuget publish feed
+        shell: pwsh
+        run: |
+          $SourceUrl = Get-Content .snapx/update.json | ConvertFrom-Json | Select -ExpandProperty source
+          dotnet nuget add source ${SourceUrl} demoapp-publish-feed
+
       - name: Publish ${{ matrix.id }} to test channel
-        env:
-          DemoappPushFeedUsername: ${{ secrets.DEMOAPP_PUSH_FEED_USERNAME }}
-          DemoappPushFeedPassword: ${{ secrets.DEMOAPP_PUSH_FEED_PASSWORD }}
-          DemoappPushFeedApiKey: ${{ secrets.DEMOAPP_PUSH_FEED_API_KEY }}
-        run: snapx pack ${{ matrix.id }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        run: snapx pack ${{ matrix.id }} --api-key ${{ secrets.DEMOAPP_PUBLISH_FEED_API_KEY }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y

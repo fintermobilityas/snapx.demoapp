@@ -54,12 +54,13 @@ jobs:
           [xml] $xml_content = Get-Content ".\$GITHUB_WORKSPACE\Directory.Build.props";
           $snapx_version = Select-Xml -Xml $xml_content -XPath "//Project/PropertyGroup/SnapxVersion" | Select -Expand Node | Select -Expand "#text"
           dotnet tool update snapx --global --version $snapx_version
-                    
+
+      - name: Add demoapp nuget publish feed
+        shell: pwsh
+        run: |
+          $SourceUrl = Get-Content .snapx/update.json | ConvertFrom-Json | Select -ExpandProperty source
+          dotnet nuget add source ${SourceUrl} demoapp-publish-feed            
+
       - name: Publish 
         shell: pwsh
-        env:
-          DemoappPushFeedUsername: ${{ secrets.DEMOAPP_PUSH_FEED_USERNAME }}
-          DemoappPushFeedPassword: ${{ secrets.DEMOAPP_PUSH_FEED_PASSWORD }}
-          DemoappPushFeedApiKey: ${{ secrets.DEMOAPP_PUSH_FEED_API_KEY }}
-        run: |
-          snapx promote ${{ matrix.name }} -r ${{ matrix.rid }} -c test --all --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
+        run: snapx promote ${{ matrix.name }} --api-key ${{ secrets.DEMOAPP_PUBLISH_FEED_API_KEY }} -r ${{ matrix.rid }} -c test --all --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
