@@ -59,7 +59,7 @@ jobs:
         shell: pwsh
         run: |
           $SourceUrl = Get-Content .snapx/update.json | ConvertFrom-Json | Select -ExpandProperty source
-          dotnet nuget add source ${SourceUrl} demoapp-publish-feed            
+          dotnet nuget add source ${SourceUrl} --name demoapp-publish-feed            
 
       - name: Publish 
         shell: pwsh

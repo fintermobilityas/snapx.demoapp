@@ -146,7 +146,7 @@ jobs:
         shell: pwsh
         run: |
           $SourceUrl = Get-Content .snapx/update.json | ConvertFrom-Json | Select -ExpandProperty source
-          dotnet nuget add source ${SourceUrl} demoapp-publish-feed
+          dotnet nuget add source ${SourceUrl} --name demoapp-publish-feed
 
       - name: Publish ${{ matrix.id }} to test channel
         run: snapx pack ${{ matrix.id }} --api-key ${{ secrets.DEMOAPP_PUBLISH_FEED_API_KEY }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
