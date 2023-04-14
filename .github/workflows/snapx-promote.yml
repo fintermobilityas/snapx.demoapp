@@ -58,6 +58,8 @@ jobs:
       - name: Publish 
         shell: pwsh
         env:
+          DemoappPushFeedUsername: ${{ secrets.DEMOAPP_PUSH_FEED_USERNAME }}
+          DemoappPushFeedPassword: ${{ secrets.DEMOAPP_PUSH_FEED_PASSWORD }}
           DemoappPushFeedApiKey: ${{ secrets.DEMOAPP_PUSH_FEED_API_KEY }}
         run: |
           snapx promote ${{ matrix.name }} -r ${{ matrix.rid }} -c test --all --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y

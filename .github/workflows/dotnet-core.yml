@@ -134,8 +134,6 @@ jobs:
           dotnet-version: '${{ env.DOTNET_SDK_VERSION }}'
 
       - name: Setup dotnet snapx
-        env:
-          DemoappPushFeedApiKey: ${{ secrets.DEMOAPP_PUSH_FEED_API_KEY }}
         run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
         
       - name: Download ${{ matrix.id }}-artifacts
@@ -145,5 +143,8 @@ jobs:
           path: ${{ github.workspace }}/.snapx/artifacts/${{ matrix.id }}/${{ matrix.rid }}/${{ env.BUILD_VERSION }}
       
       - name: Publish ${{ matrix.id }} to test channel
-        timeout-minutes: 60
+        env:
+          DemoappPushFeedUsername: ${{ secrets.DEMOAPP_PUSH_FEED_USERNAME }}
+          DemoappPushFeedPassword: ${{ secrets.DEMOAPP_PUSH_FEED_PASSWORD }}
+          DemoappPushFeedApiKey: ${{ secrets.DEMOAPP_PUSH_FEED_API_KEY }}
         run: snapx pack ${{ matrix.id }} -r ${{ matrix.rid }} -v ${{ env.BUILD_VERSION }} --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
