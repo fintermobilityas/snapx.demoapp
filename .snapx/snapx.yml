@@ -3,12 +3,12 @@ schema: 2
 channels:
 - name: test
   pushFeed: !nuget
-    name: demoapp-publish
+    name: DemoAppPushFeed
   updateFeed: !http 
     source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/myget.json
 - name: production
   pushFeed: !nuget
-    name: demoapp-publish
+    name: DemoAppPushFeed
   updateFeed: !http
     source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/myget.json
 

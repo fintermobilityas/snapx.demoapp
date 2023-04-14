@@ -132,11 +132,10 @@ jobs:
         uses: actions/setup-dotnet@v3.0.3
         with:
           dotnet-version: '${{ env.DOTNET_SDK_VERSION }}'
-          
-      - name: Setup snapx push feed
-        run: dotnet nuget add source ${{ secrets.MYGET_FEED_URL }} --name demoapp-publish
-        
+
       - name: Setup dotnet snapx
+        env:
+          DemoappPushFeedApiKey: ${{ secrets.DEMOAPP_PUSH_FEED_API_KEY }}
         run: dotnet tool update snapx --global --version ${{ env.SNAPX_VERSION }}
         
       - name: Download ${{ matrix.id }}-artifacts
