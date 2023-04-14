@@ -23,6 +23,7 @@ public sealed class MainWindowViewModel : ViewModelBase
     bool _viewIsCheckingForUpdates;
     bool _viewIsApplyingUpdates;
     bool _viewIsUpdateCompleted;
+    string _dotnetSdkVersion;
 
     public string Title
     {
@@ -88,6 +89,12 @@ public sealed class MainWindowViewModel : ViewModelBase
     {
         get => _uptime;
         set => this.RaiseAndSetIfChanged(ref _uptime, value);
+    }
+    
+    public string DotnetSdkVersion
+    {
+        get => _dotnetSdkVersion;
+        set => this.RaiseAndSetIfChanged(ref _dotnetSdkVersion, value);
     }
 
     public int UpdateProgressPercentage

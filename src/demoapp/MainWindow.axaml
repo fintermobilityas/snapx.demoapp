@@ -30,6 +30,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250" />
@@ -42,8 +43,9 @@
                 <TextBlock Grid.Column="0" Grid.Row="3" Classes="display3" Text="Application id:" />
                 <TextBlock Grid.Column="0" Grid.Row="4" Classes="display3" Text="Next version:" />
                 <TextBlock Grid.Column="0" Grid.Row="5" Classes="display3" Text="Snapx version:" />
-                <TextBlock Grid.Column="0" Grid.Row="6" Classes="display3" Text="Rid:" />
-                <TextBlock Grid.Column="0" Grid.Row="7" Classes="display3" Text="Uptime:" />
+                <TextBlock Grid.Column="0" Grid.Row="6" Classes="display3" Text=".NET SDK version:" />
+                <TextBlock Grid.Column="0" Grid.Row="7" Classes="display3" Text="Rid:" />
+                <TextBlock Grid.Column="0" Grid.Row="8" Classes="display3" Text="Uptime:" />
                 
                 <TextBlock Grid.Column="1" Grid.Row="0" Classes="display3" Text="{Binding CurrentVersion}" />
                 <TextBlock Grid.Column="1" Grid.Row="1" Classes="display3" Text="{Binding CurrentChannel}" />
@@ -51,8 +53,9 @@
                 <TextBlock Grid.Column="1" Grid.Row="3" Classes="display3" Text="{Binding CurrentApplicationId}" />
                 <TextBlock Grid.Column="1" Grid.Row="4" Classes="display3" Text="{Binding NextVersion}"  />
                 <TextBlock Grid.Column="1" Grid.Row="5" Classes="display3" Text="{Binding SnapxVersion}"  />
-                <TextBlock Grid.Column="1" Grid.Row="6" Classes="display3" Text="{Binding Rid}"  />
-                <TextBlock Grid.Column="1" Grid.Row="7" Classes="display3" Text="{Binding Uptime}"  />
+                <TextBlock Grid.Column="1" Grid.Row="6" Classes="display3" Text="{Binding DotnetSdkVersion}"  />
+                <TextBlock Grid.Column="1" Grid.Row="7" Classes="display3" Text="{Binding Rid}"  />
+                <TextBlock Grid.Column="1" Grid.Row="8" Classes="display3" Text="{Binding Uptime}"  />
             </Grid>
 
             <Grid Margin="50 20 0 0">

@@ -109,6 +109,7 @@ internal sealed partial class MainWindow : Window
             throw new PlatformNotSupportedException();
         });
         ViewModel.IsSnapPacked = Snapx.Current != null;
+        ViewModel.DotnetSdkVersion = RuntimeInformation.FrameworkDescription;
 
         DataContext = ViewModel;
 
