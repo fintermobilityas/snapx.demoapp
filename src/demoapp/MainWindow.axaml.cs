@@ -139,10 +139,9 @@ internal sealed partial class MainWindow : Window
 
         if (snapApp == null)
         {
-            await Dispatcher.UIThread.InvokeAsync(async () =>
+            await Dispatcher.UIThread.InvokeAsync(() =>
             {
                 TransitionView(x => x.ViewIsCheckingForUpdates);
-                await Task.Delay(TimeSpan.FromSeconds(3));
                 TransitionView(x => x.ViewIsDefault);
                 ViewModel.CurrentVersion = "You need to publish this application in order to check for updates";
             });
