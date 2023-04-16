@@ -67,11 +67,10 @@ internal sealed class App : Application
 
             _logger.Debug("Debugger attached.");
         }
-            
-
+        
         _logger.Info($"Process started! Arguments({args.Length}): {string.Join(" ", args)}");
-        _logger.Info($"Environment variable 1: TEST={Environment.GetEnvironmentVariable("VAR1")}");
-        _logger.Info($"Environment variable 2: TEST={Environment.GetEnvironmentVariable("VAR2")}");
+        _logger.Info($"Environment variable 1: VAR1={Environment.GetEnvironmentVariable("VAR1")}");
+        _logger.Info($"Environment variable 2: VAR2={Environment.GetEnvironmentVariable("VAR2")}");
 
         if (Snapx.ProcessEvents(args))
         {
