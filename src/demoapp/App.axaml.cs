@@ -70,6 +70,8 @@ internal sealed class App : Application
             
 
         _logger.Info($"Process started! Arguments({args.Length}): {string.Join(" ", args)}");
+        _logger.Info($"Environment variable 1: TEST={Environment.GetEnvironmentVariable("VAR1")}");
+        _logger.Info($"Environment variable 2: TEST={Environment.GetEnvironmentVariable("VAR2")}");
 
         if (Snapx.ProcessEvents(args))
         {

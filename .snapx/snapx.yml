@@ -49,6 +49,9 @@ apps:
     - startmenu
     persistentAssets:
     - application.json
+    environment:
+      VAR1: Text123
+      VAR2: 123
 
 - id: demoapp-win-x64
   main: demoapp
@@ -77,6 +80,9 @@ apps:
     - startmenu
     persistentAssets:
     - application.json
+    environment:
+      VAR1: Text123
+      VAR2: 123
 
 - id: demoapp-linux-x64
   main: demoapp
@@ -104,6 +110,9 @@ apps:
     - startup
     persistentAssets:
     - application.json
+    environment:
+      VAR1: Text123
+      VAR2: 123
 
 - id: demoapp-linux-arm64
   main: demoapp
@@ -131,3 +140,6 @@ apps:
     - startup
     persistentAssets:
     - application.json
+    environment:
+      VAR1: Text123
+      VAR2: 123
