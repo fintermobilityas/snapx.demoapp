@@ -62,13 +62,13 @@ jobs:
           dotnet nuget add source ${SourceUrl} --name demoapp-publish-feed            
 
       - name: Generate snapx cache files
-        run: snapx restore --package-file --rid ${{ matrix.rid }}
+        run: snapx restore --package-file ${{ matrix.id }}
 
       - name: Restore snapx nuget packages for all release channels 
         uses: actions/cache@v3
         with:
-          path: .snapx/packages/demoapp-${{ matrix.rid }}/${{ matrix.rid }}
-          key: demoapp-${{ matrix.rid }}-${{ hashFiles('cache-*.txt') }}
+          path: .snapx/packages/${{ matrix.id }}/${{ matrix.rid }}
+          key: ${{ matrix.id }}-${{ hashFiles('cache-*.txt') }}
 
       - name: Publish 
         run: snapx promote ${{ matrix.name }} --api-key ${{ secrets.DEMOAPP_PUBLISH_FEED_API_KEY }} -r ${{ matrix.rid }} -c test --all --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
