@@ -119,7 +119,7 @@ The supervisor monitors your applications. Snapx uses a stub executable that is 
 
 ### Is a CI server required?
 
-No. You can push updates from your local machine to a local directory, a `UNC path` or a `NuGet` server such as `Github Packages`, `nuget.org`, `myget.org` etc.. Using a `NuGet` server is the preferred way because you never have to worry about your storing your release nupkgs.
+No. You can push updates from your local machine to a local directory, a `UNC path` or a `NuGet` server such as `Github Packages`, `nuget.org`, `cloudsmith.io` etc.. Using a `NuGet` server is the preferred way because you never have to worry about your storing your release nupkgs.
 
 ### Different types of installers
 
