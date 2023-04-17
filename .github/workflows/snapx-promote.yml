@@ -68,7 +68,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .snapx/packages/${{ matrix.id }}/${{ matrix.rid }}
-          key: ${{ matrix.id }}-${{ hashFiles('cache-*.txt') }}
+          key: ${{ matrix.id }}-${{ hashFiles('packages-*.txt') }}
 
       - name: Publish 
         run: snapx promote ${{ matrix.name }} --api-key ${{ secrets.DEMOAPP_PUBLISH_FEED_API_KEY }} -r ${{ matrix.rid }} -c test --all --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y
