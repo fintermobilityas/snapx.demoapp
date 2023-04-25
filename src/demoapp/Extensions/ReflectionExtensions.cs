@@ -15,9 +15,9 @@ internal static class ReflectionExtensions
     public static Type ResolveTypeUsingAssemblyOfT<T>([NotNull] this string typeName)
     {
         ArgumentNullException.ThrowIfNull(typeName);
-        return typeName.ResolveType(new[] { typeof(T).Assembly.FullName});
+        return typeName.ResolveType(new[] { typeof(T).Assembly.FullName });
     }
-        
+
     public static Type ResolveType([NotNull] this string typeName, [NotNull] IEnumerable<string> assemblyNames)
     {
         ArgumentNullException.ThrowIfNull(typeName);
@@ -27,7 +27,7 @@ internal static class ReflectionExtensions
             .Select(assemblyName => Type.GetType($"{typeName}, {assemblyName}"))
             .FirstOrDefault(type => type != null) ?? Type.GetType(typeName);
     }
-        
+
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static string BuildMemberName<T>(this Expression<Func<T, object>> expression)
     {

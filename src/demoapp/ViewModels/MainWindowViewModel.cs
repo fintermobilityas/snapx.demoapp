@@ -42,7 +42,7 @@ public sealed class MainWindowViewModel : ViewModelBase
         get => _currentVersion;
         set => this.RaiseAndSetIfChanged(ref _currentVersion, value);
     }
-        
+
     public string ReleaseNotes
     {
         get => _releaseNotes;
@@ -90,7 +90,7 @@ public sealed class MainWindowViewModel : ViewModelBase
         get => _uptime;
         set => this.RaiseAndSetIfChanged(ref _uptime, value);
     }
-    
+
     public string DotnetSdkVersion
     {
         get => _dotnetSdkVersion;
@@ -102,7 +102,7 @@ public sealed class MainWindowViewModel : ViewModelBase
         get => _updateProgressPercentage;
         set => this.RaiseAndSetIfChanged(ref _updateProgressPercentage, value);
     }
-        
+
     public string UpdateProgressText
     {
         get => _updateProgressText;
@@ -126,7 +126,7 @@ public sealed class MainWindowViewModel : ViewModelBase
         get => _viewIsApplyingUpdates;
         set => this.RaiseAndSetIfChanged(ref _viewIsApplyingUpdates, value);
     }
-        
+
     public bool ViewIsUpdateCompleted
     {
         get => _viewIsUpdateCompleted;

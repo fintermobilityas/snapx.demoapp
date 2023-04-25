@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -41,7 +41,7 @@ internal sealed partial class MainWindow : Window
         }
         base.OnClosing(e);
     }
-        
+
     void InitializeComponent()
     {
         var snapApp = Snapx.Current;
@@ -51,7 +51,8 @@ internal sealed partial class MainWindow : Window
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             ViewModel.Title = "Snapx Windows Demo";
-        } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             ViewModel.Title = "Snapx Linux Demo";
         }
@@ -166,7 +167,7 @@ internal sealed partial class MainWindow : Window
                         isViewTransitioned = true;
                         TransitionView(x => x.ViewIsApplyingUpdates);
                     }
-                        
+
                     var outputText = total > 1 ? pluralText : defaultText;
 
                     switch (type)
@@ -198,7 +199,7 @@ internal sealed partial class MainWindow : Window
                             goto incrementProgress;
                     }
 
-                    incrementProgress:
+                incrementProgress:
                     ViewModel.UpdateProgressPercentage = totalPercentage;
                 }
 
@@ -220,14 +221,14 @@ internal sealed partial class MainWindow : Window
                 x.progressPercentage,
                 x.releasesChecksummed,
                 x.releasesToChecksum);
-                    
+
             _updateProgressSource.DownloadProgress = x => UpdateProgress("Download",
                 x.progressPercentage,
                 releasesDownloaded: x.releasesDownloaded,
                 releasesToDownload: x.releasesToDownload,
                 totalBytesDownloaded: x.totalBytesDownloaded,
                 totalBytesToDownload: x.totalBytesToDownload);
-                    
+
             _updateProgressSource.RestoreProgress = x => UpdateProgress("Restore",
                 x.progressPercentage,
                 filesRestored: x.filesRestored,

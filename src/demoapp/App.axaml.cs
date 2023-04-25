@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
@@ -28,7 +28,7 @@ public sealed class AppEnvironment : IAppEnvironment
     public SnapApp SnapApp { get; init; }
     public ISnapUpdateManager UpdateManager { get; init; }
 }
-    
+
 internal sealed class App : Application
 {
     static Logger _logger;
@@ -67,7 +67,7 @@ internal sealed class App : Application
 
             _logger.Debug("Debugger attached.");
         }
-        
+
         _logger.Info($"Process started! Arguments({args.Length}): {string.Join(" ", args)}");
         _logger.Info($"Environment variable 1: VAR1={Environment.GetEnvironmentVariable("VAR1")}");
         _logger.Info($"Environment variable 2: VAR2={Environment.GetEnvironmentVariable("VAR2")}");
@@ -76,7 +76,7 @@ internal sealed class App : Application
         {
             return 0;
         }
-            
+
         var snapApp = Snapx.Current;
 
         if (snapApp != null)
@@ -85,7 +85,7 @@ internal sealed class App : Application
             // If you need to exit your application the you must invoke Snapx.StopSupervisor() before exiting.
             Snapx.StartSupervisor();
         }
-            
+
         var mainWindowViewModel = new MainWindowViewModel
         {
             ViewIsDefault = true,
@@ -121,24 +121,24 @@ internal sealed class App : Application
 
         var layout = $"${{date}} Process id: ${{processid}}, Version: ${{assembly-version:${assemblyVersion}}}, Thread: ${{threadname}}, ${{logger}} - ${{message}} " +
                      "${onexception:EXCEPTION OCCURRED\\:${exception:format=ToString,StackTrace}}";
-            
+
         var config = new LoggingConfiguration();
-            
+
         var fileTarget = new FileTarget("logfile")
         {
             FileName = "demoapp.log",
             Layout = layout
         };
-            
+
         config.AddRule(LogLevel.Trace, LogLevel.Fatal, fileTarget);
 
         var consoleTarget = new ConsoleTarget("logconsole")
         {
             Layout = layout
         };
-            
+
         config.AddRule(LogLevel.Trace, LogLevel.Fatal, consoleTarget);
-            
+
         if (Debugger.IsAttached)
         {
             var debugTarget = new DebuggerTarget("debug")
@@ -149,10 +149,10 @@ internal sealed class App : Application
         }
 
         LogManager.Configuration = config;
-            
+
         SetNlogLogLevel(LogLevel.Trace);
     }
-        
+
     static void SetNlogLogLevel(LogLevel level)
     {
         if (level == LogLevel.Off)
@@ -178,5 +178,5 @@ internal sealed class App : Application
 
         LogManager.ReconfigExistingLoggers();
     }
-        
+
 }
