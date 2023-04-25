@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 namespace demoapp.Extensions;
 
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
-public static class ReflectionExtensions
+internal static class ReflectionExtensions
 {
     const string ExpressionCannotBeNullMessage = "The expression cannot be null";
     const string InvalidExpressionMessage = "Invalid expression";
@@ -31,39 +31,34 @@ public static class ReflectionExtensions
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static string BuildMemberName<T>(this Expression<Func<T, object>> expression)
     {
+        ArgumentNullException.ThrowIfNull(expression);
         return BuildMemberName(expression.Body);
     }
 
     public static string BuildPropertyGetterSyntax<T>(this Expression<Func<T, object>> expression)
     {
-        var propertyName = expression.BuildMemberName();
-        return $"get_{propertyName}";
+        ArgumentNullException.ThrowIfNull(expression);
+        return $"get_{expression.BuildMemberName()}";
     }
 
     public static string BuildPropertySetterSyntax<T>(this Expression<Func<T, object>> expression)
     {
-        var propertyName = expression.BuildMemberName();
-        return $"set_{propertyName}";
+        ArgumentNullException.ThrowIfNull(expression);
+        return $"set_{expression.BuildMemberName()}";
     }
-    static string BuildMemberName(Expression expression)
-    {
-        switch (expression)
+
+    static string BuildMemberName(Expression expression) =>
+        expression switch
         {
-            case null:
-                throw new ArgumentException(ExpressionCannotBeNullMessage);
-            case MemberExpression memberExpression:
-                // Reference type property or field
-                return memberExpression.Member.Name;
-            case MethodCallExpression methodCallExpression:
-                // Reference type method
-                return methodCallExpression.Method.Name;
-            case UnaryExpression unaryExpression:
-                // Property, field of method returning value type
-                return BuildMemberName(unaryExpression);
-            default:
-                throw new ArgumentException(InvalidExpressionMessage);
-        }
-    }
+            null => throw new ArgumentException(ExpressionCannotBeNullMessage),
+            // Reference type property or field
+            MemberExpression memberExpression => memberExpression.Member.Name,
+            // Reference type method
+            MethodCallExpression methodCallExpression => methodCallExpression.Method.Name,
+            // Property, field of method returning value type
+            UnaryExpression unaryExpression => BuildMemberName(unaryExpression),
+            _ => throw new ArgumentException(InvalidExpressionMessage)
+        };
 
     static string BuildMemberName(UnaryExpression unaryExpression)
     {
@@ -72,6 +67,11 @@ public static class ReflectionExtensions
             return methodExpression.Method.Name;
         }
 
-        return ((MemberExpression)unaryExpression.Operand).Member.Name;
+        if (unaryExpression.Operand is MemberExpression memberExpression)
+        {
+            return memberExpression.Member.Name;
+        }
+
+        throw new NotSupportedException();
     }
 }
