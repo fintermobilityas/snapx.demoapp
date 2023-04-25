@@ -71,7 +71,7 @@ internal sealed partial class MainWindow : Window
         ViewModel.CommandRestartApplication = ReactiveCommand.CreateFromTask(() =>
         {
             _isRestart = true;
-            return Dispatcher.UIThread.InvokeAsync(Close);
+            return Dispatcher.UIThread.InvokeAsync(Close).GetTask();
         });
         ViewModel.CommandOpenApplicationFolder = ReactiveCommand.Create(() =>
         {
@@ -149,7 +149,7 @@ internal sealed partial class MainWindow : Window
             return;
         }
 
-        snapApp = await Dispatcher.UIThread.InvokeAsync(async () =>
+        snapApp = await await Dispatcher.UIThread.InvokeAsync(async () =>
         {
             var isViewTransitioned = false;
 
@@ -236,7 +236,7 @@ internal sealed partial class MainWindow : Window
             TransitionView(x => x.ViewIsCheckingForUpdates);
 
             return await updateManager.UpdateToLatestReleaseAsync(_updateProgressSource);
-        });
+        }).GetTask();
 
         await Dispatcher.UIThread.InvokeAsync(async () =>
         {
@@ -257,7 +257,7 @@ internal sealed partial class MainWindow : Window
 
     static void TransitionView([NotNull] Expression<Func<MainWindowViewModel, object>> expression)
     {
-        if (expression == null) throw new ArgumentNullException(nameof(expression));
+        ArgumentNullException.ThrowIfNull(expression);
 
         var propertyName = expression.BuildMemberName();
         var propertyInfos = typeof(MainWindowViewModel).GetProperties().ToList();

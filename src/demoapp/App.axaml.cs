@@ -25,8 +25,8 @@ public interface IAppEnvironment
 
 public sealed class AppEnvironment : IAppEnvironment
 {
-    public SnapApp SnapApp { get; set; }
-    public ISnapUpdateManager UpdateManager { get; set; }
+    public SnapApp SnapApp { get; init; }
+    public ISnapUpdateManager UpdateManager { get; init; }
 }
     
 internal sealed class App : Application
