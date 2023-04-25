@@ -261,7 +261,7 @@ internal sealed partial class MainWindow : Window
 
         var propertyName = expression.BuildMemberName();
         var propertyInfos = typeof(MainWindowViewModel).GetProperties().ToList();
-        foreach (var property in propertyInfos.Where(x => x.Name.StartsWith("ViewIs")))
+        foreach (var property in propertyInfos.Where(x => x.Name.StartsWith("ViewIs", StringComparison.Ordinal)))
         {
             if (string.Equals(propertyName, property.Name))
             {
