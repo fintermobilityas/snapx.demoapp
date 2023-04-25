@@ -1,8 +1,8 @@
 name: Promote current snapx demo test release version to production
-on: 
+on:
   release:
     types: [published]
-      
+
 env:
   DOTNET_NET60_VERSION: 7.0.203
 
@@ -12,21 +12,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix: 
+      matrix:
         include:
-        - id: demoapp-linux-arm64
-          rid: linux-arm64
-          os: ubuntu-latest
-        - id: demoapp-linux-x64
-          rid: linux-x64
-          os: ubuntu-latest
-        - id: demoapp-win-x86
-          rid: win-x86
-          os: windows-latest
-        - id: demoapp-win-x64
-          rid: win-x64
-          os: windows-latest
-    steps:  
+          - id: demoapp-linux-arm64
+            rid: linux-arm64
+            os: ubuntu-latest
+          - id: demoapp-linux-x64
+            rid: linux-x64
+            os: ubuntu-latest
+          - id: demoapp-win-x86
+            rid: win-x86
+            os: windows-latest
+          - id: demoapp-win-x64
+            rid: win-x64
+            os: windows-latest
+    steps:
       - name: Disallow Concurrent Runs
         if: github.ref == 'refs/heads/master'
         uses: byu-oit/github-action-disallow-concurrent-runs@v2.0.2
@@ -37,20 +37,20 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: '${{ github.ref }}'
-          
+          ref: "${{ github.ref }}"
+
       - name: Add dotnet tools to environment path
         shell: pwsh
         run: echo "${HOME}/.dotnet/tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      
+
       - name: Setup .NET 6.0
         uses: actions/setup-dotnet@v3.0.3
         with:
           dotnet-version: ${{ env.DOTNET_NET60_VERSION }}
-          
+
       - name: Setup dotnet snapx
         shell: pwsh
-        run: | 
+        run: |
           [xml] $xml_content = Get-Content ".\$GITHUB_WORKSPACE\Directory.Build.props";
           $snapx_version = Select-Xml -Xml $xml_content -XPath "//Project/PropertyGroup/SnapxVersion" | Select -Expand Node | Select -Expand "#text"
           dotnet tool update snapx --global --version $snapx_version
@@ -59,16 +59,16 @@ jobs:
         shell: pwsh
         run: |
           $SourceUrl = Get-Content .snapx/update.json | ConvertFrom-Json | Select -ExpandProperty source
-          dotnet nuget add source ${SourceUrl} --name demoapp-publish-feed            
+          dotnet nuget add source ${SourceUrl} --name demoapp-publish-feed
 
       - name: Generate snapx cache files
         run: snapx restore --package-file ${{ matrix.id }}
 
-      - name: Restore snapx nuget packages for all release channels 
+      - name: Restore snapx nuget packages for all release channels
         uses: actions/cache@v3
         with:
           path: .snapx/packages/${{ matrix.id }}/${{ matrix.rid }}
           key: ${{ matrix.id }}-all-${{ hashFiles('packages-*.txt') }}
 
-      - name: Publish 
+      - name: Publish
         run: snapx promote ${{ matrix.name }} --api-key ${{ secrets.DEMOAPP_PUBLISH_FEED_API_KEY }} -r ${{ matrix.rid }} -c test --all --skip-installers --lock-token ${{ secrets.SNAPX_TOKEN }} --lock-retries -1 -y

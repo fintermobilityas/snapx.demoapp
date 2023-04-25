@@ -1,16 +1,16 @@
 schema: 2
 
 channels:
-- name: test
-  pushFeed: !nuget
-    name: demoapp-publish-feed
-  updateFeed: !http 
-    source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/update.json
-- name: production
-  pushFeed: !nuget
-    name: demoapp-publish-feed
-  updateFeed: !http
-    source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/update.json
+  - name: test
+    pushFeed: !nuget
+      name: demoapp-publish-feed
+    updateFeed: !http
+      source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/update.json
+  - name: production
+    pushFeed: !nuget
+      name: demoapp-publish-feed
+    updateFeed: !http
+      source: https://raw.githubusercontent.com/fintermobilityas/snapx.demoapp/develop/.snapx/update.json
 
 # You have to set a unique token in order to ensure that only one snapx instance
 # is able to push packages to your NuGet feed. This token can be random text string
@@ -18,128 +18,128 @@ channels:
 
 ##### UNCOMMENT START ####
 #generic:
-  #token: https://www.guidgenerator.com/online-guid-generator.aspx
+#token: https://www.guidgenerator.com/online-guid-generator.aspx
 ##### UNCOMMENT END ######
 
 apps:
-- id: demoapp-win-x86
-  main: demoapp
-  installDirectory: demoapp
-  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
-  nuspec:
-    description: Snapx demoapp
-    releaseNotes: Demoapp release notes
-    authors: Finter Mobility As
-    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
-    repositoryType: git
-  channels:
-  - test
-  - production
-  target:
-    os: windows
-    framework: net8.0
-    rid: win-x86
-    icon: .snapx/assets/icons/demoapp.ico
-    installers:
-    - web
-    - offline
-    shortcuts:
-    - desktop
-    - startup
-    - startmenu
-    persistentAssets:
-    - application.json
-    environment:
-      VAR1: Text123
-      VAR2: 123
+  - id: demoapp-win-x86
+    main: demoapp
+    installDirectory: demoapp
+    supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+    nuspec:
+      description: Snapx demoapp
+      releaseNotes: Demoapp release notes
+      authors: Finter Mobility As
+      repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+      repositoryType: git
+    channels:
+      - test
+      - production
+    target:
+      os: windows
+      framework: net8.0
+      rid: win-x86
+      icon: .snapx/assets/icons/demoapp.ico
+      installers:
+        - web
+        - offline
+      shortcuts:
+        - desktop
+        - startup
+        - startmenu
+      persistentAssets:
+        - application.json
+      environment:
+        VAR1: Text123
+        VAR2: 123
 
-- id: demoapp-win-x64
-  main: demoapp
-  installDirectory: demoapp
-  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
-  nuspec:
-    description: Snapx demoapp
-    releaseNotes: Demoapp release notes
-    authors: Finter Mobility As
-    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
-    repositoryType: git
-  channels:
-  - test
-  - production
-  target:
-    os: windows
-    framework: net8.0
-    rid: win-x64
-    icon: .snapx/assets/icons/demoapp.ico
-    installers:
-    - web
-    - offline
-    shortcuts:
-    - desktop
-    - startup
-    - startmenu
-    persistentAssets:
-    - application.json
-    environment:
-      VAR1: Text123
-      VAR2: 123
+  - id: demoapp-win-x64
+    main: demoapp
+    installDirectory: demoapp
+    supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+    nuspec:
+      description: Snapx demoapp
+      releaseNotes: Demoapp release notes
+      authors: Finter Mobility As
+      repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+      repositoryType: git
+    channels:
+      - test
+      - production
+    target:
+      os: windows
+      framework: net8.0
+      rid: win-x64
+      icon: .snapx/assets/icons/demoapp.ico
+      installers:
+        - web
+        - offline
+      shortcuts:
+        - desktop
+        - startup
+        - startmenu
+      persistentAssets:
+        - application.json
+      environment:
+        VAR1: Text123
+        VAR2: 123
 
-- id: demoapp-linux-x64
-  main: demoapp
-  installDirectory: demoapp
-  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
-  nuspec:
-    description: Snapx demoapp
-    releaseNotes: Demoapp release notes
-    authors: Finter Mobility As
-    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
-    repositoryType: git
-  channels:
-  - test
-  - production
-  target:
-    os: linux
-    framework: net8.0
-    rid: linux-x64
-    icon: .snapx/assets/icons/demoapp.svg
-    installers:
-    - web
-    - offline
-    shortcuts:
-    - desktop
-    - startup
-    persistentAssets:
-    - application.json
-    environment:
-      VAR1: Text123
-      VAR2: 123
+  - id: demoapp-linux-x64
+    main: demoapp
+    installDirectory: demoapp
+    supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+    nuspec:
+      description: Snapx demoapp
+      releaseNotes: Demoapp release notes
+      authors: Finter Mobility As
+      repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+      repositoryType: git
+    channels:
+      - test
+      - production
+    target:
+      os: linux
+      framework: net8.0
+      rid: linux-x64
+      icon: .snapx/assets/icons/demoapp.svg
+      installers:
+        - web
+        - offline
+      shortcuts:
+        - desktop
+        - startup
+      persistentAssets:
+        - application.json
+      environment:
+        VAR1: Text123
+        VAR2: 123
 
-- id: demoapp-linux-arm64
-  main: demoapp
-  installDirectory: demoapp
-  supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
-  nuspec:
-    description: Snapx demoapp
-    releaseNotes: Demoapp release notes
-    authors: Finter Mobility As
-    repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
-    repositoryType: git
-  channels:
-  - test
-  - production
-  target:
-    os: linux
-    framework: net8.0
-    rid: linux-arm64
-    icon: .snapx/assets/icons/demoapp.svg
-    installers:
-    - web
-    - offline
-    shortcuts:
-    - desktop
-    - startup
-    persistentAssets:
-    - application.json
-    environment:
-      VAR1: Text123
-      VAR2: 123
+  - id: demoapp-linux-arm64
+    main: demoapp
+    installDirectory: demoapp
+    supervisorid: 9ba3536d-37b2-4683-96a6-dfc9b72b6f95
+    nuspec:
+      description: Snapx demoapp
+      releaseNotes: Demoapp release notes
+      authors: Finter Mobility As
+      repositoryUrl: https://github.com/fintermobilityas/snapx.demoapp.git
+      repositoryType: git
+    channels:
+      - test
+      - production
+    target:
+      os: linux
+      framework: net8.0
+      rid: linux-arm64
+      icon: .snapx/assets/icons/demoapp.svg
+      installers:
+        - web
+        - offline
+      shortcuts:
+        - desktop
+        - startup
+      persistentAssets:
+        - application.json
+      environment:
+        VAR1: Text123
+        VAR2: 123
