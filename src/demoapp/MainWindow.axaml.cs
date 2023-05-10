@@ -150,7 +150,7 @@ internal sealed partial class MainWindow : Window
             return;
         }
 
-        snapApp = await await Dispatcher.UIThread.InvokeAsync(async () =>
+        snapApp = await Dispatcher.UIThread.InvokeAsync(async () =>
         {
             var isViewTransitioned = false;
 
@@ -237,7 +237,7 @@ internal sealed partial class MainWindow : Window
             TransitionView(x => x.ViewIsCheckingForUpdates);
 
             return await updateManager.UpdateToLatestReleaseAsync(_updateProgressSource);
-        }).GetTask();
+        });
 
         await Dispatcher.UIThread.InvokeAsync(async () =>
         {
