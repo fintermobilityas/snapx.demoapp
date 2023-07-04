@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <AvaloniaVersion>11.0.0-rc2.2</AvaloniaVersion>
-    <SnapxVersion>5.2.3-prerelease0023</SnapxVersion>
+    <SnapxVersion>5.2.3-prerelease0025</SnapxVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
