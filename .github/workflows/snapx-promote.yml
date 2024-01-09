@@ -4,7 +4,7 @@ on:
     types: [published]
 
 env:
-  DOTNET_NET60_VERSION: 7.0.401
+  DOTNET_NET60_VERSION: 8.0.101
 
 jobs:
   publish:
