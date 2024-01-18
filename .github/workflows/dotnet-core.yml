@@ -151,7 +151,7 @@ jobs:
         run: snapx restore --package-file ${{ matrix.id }}
 
       - name: Restore snapx nuget packages for test release channel
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .snapx/packages/${{ matrix.id }}/${{ matrix.rid }}
           key: ${{ matrix.id }}-test-${{ hashFiles('packages-test.txt') }}
