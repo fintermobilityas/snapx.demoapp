@@ -4,7 +4,7 @@ on:
     types: [published]
 
 env:
-  DOTNET_VERSION: 8.0.204
+  DOTNET_VERSION: 8.0.300
 
 jobs:
   publish:
