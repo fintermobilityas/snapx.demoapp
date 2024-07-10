@@ -13,6 +13,10 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   SNAPX_LOG_EXCEPTIONS: 1
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref_name != 'master' }}
+
 jobs:
   setup:
     name: Setup
@@ -21,11 +25,7 @@ jobs:
       BUILD_VERSION: ${{ steps.set-build-version.outputs.BUILD_VERSION }}
       SNAPX_VERSION: ${{ steps.set-snapx-version.outputs.SNAPX_VERSION }}
     steps:
-      - name: Disallow Concurrent Runs
-        uses: fintermobilityas/github-action-disallow-concurrent-runs@main
-        with:
-          token: ${{ github.token }}
-
+    
       - name: Checkout
         uses: actions/checkout@v4
         with:
