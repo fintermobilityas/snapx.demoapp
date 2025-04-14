@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <AvaloniaVersion>11.2.6</AvaloniaVersion>
+    <AvaloniaVersion>11.2.7</AvaloniaVersion>
     <SnapxVersion>5.2.101-prerelease0036</SnapxVersion>
   </PropertyGroup>
   <ItemGroup>
