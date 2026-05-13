@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> This Snapx demo application is archived and deprecated. Replacement examples now live in the [Surge demo app](https://github.com/fintermobilityas/surge/tree/main/demoapp).
+> Existing Snapx demo packages remain available for old consumers, but future publishing automation is disabled.
+> For migration guidance, see the [Surge README](https://github.com/fintermobilityas/surge#readme) and [Surge integration guide](https://github.com/fintermobilityas/surge/blob/main/docs/integrating-surge.md).
+
 # 📖 Snapx Demo Application
 
 [![Gitter](https://badges.gitter.im/fintermobilityas-snapx/community.svg)](https://gitter.im/fintermobilityas-snapx/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![License](https://img.shields.io/github/license/fintermobilityas/snapx.demoapp.svg)
